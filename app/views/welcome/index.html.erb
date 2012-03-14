@@ -28,6 +28,7 @@
   </head>
 
   <body>
+    
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -44,6 +45,11 @@
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
+            <%= form_for :session, :html => {:class => "navbar-form pull-right"}, :url => session_path do |form| %>
+            <%= form.text_field :email, :type => "email", :class => "input-small", :placeholder => 'Email'%>
+            <%= form.password_field :password, :class => "input-small", :placeholder => 'Senha' %>
+            <button class="btn" type="submit">Entrar</button>
+          <% end %>
           </div><!--/.nav-collapse -->
         </div>
       </div>

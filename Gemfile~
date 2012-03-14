@@ -7,7 +7,6 @@ gem 'rails', '3.1.4'
 
 gem 'pg'
 gem "clearance", "~> 0.15.0"
-gem 'foreigner'
 
 
 # Gems used only for assets and not required
