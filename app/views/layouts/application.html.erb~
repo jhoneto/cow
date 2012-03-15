@@ -68,7 +68,7 @@
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li class="nav-header">Configurações</li>
-              <li><%= link_to "Usuários"%></li>
+              <li><%= link_to "Usuários", '#'%></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
             </ul>

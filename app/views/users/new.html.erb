@@ -1,4 +1,11 @@
+
+
 <%= semantic_form_for @user do |f| %>
-    <%= f.inputs %>
-    <%= f.actions %>
-  <% end %>
+	  <%= f.semantic_errors %>
+	  <%= f.inputs do %>
+	    <%= f.input :name,   :hint => "Enter the origami artwork's name" %>
+	  <% end %>
+	  <%= f.buttons do %>
+	    <%= f.commit_button :button_html => {:class => "btn-primary"} %>
+	  <% end %>
+	<% end %>
