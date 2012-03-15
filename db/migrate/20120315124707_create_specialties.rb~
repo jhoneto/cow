@@ -1,0 +1,9 @@
+class CreateSpecialties < ActiveRecord::Migration
+  def change
+    create_table :specialties do |t|
+      t.string     :name, :limit => 150, :null => false
+      t.integer    :account_id, :null => false
+      t.timestamps
+    end
+  end
+end
