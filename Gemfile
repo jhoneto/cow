@@ -15,6 +15,10 @@ gem "inherited_resources", "~> 1.3.1"
 gem "responders", "~> 0.8.0"
 gem "has_scope", "~> 0.5.1"
 
+
+group :development do
+  gem 'bootstrap-rails', :git => 'git://github.com/jhoneto/bootstrap-rails.git' 
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
