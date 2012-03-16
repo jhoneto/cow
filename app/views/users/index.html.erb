@@ -1,0 +1,32 @@
+<ul class="tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", users_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_user_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> Users
+<table class="bordered-table zebra-striped">
+    <thead>             
+      <th>#</th>   
+            <th><%= t("activerecord.attributes.user.email", :default => "Email") %></th>
+            <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+      	<% @users.each do |user| -%>
+        <tr>
+          <td><%= user.id %></td>
+                    <td><%= link_to user.email, user_path(user) %></td>
+                    <td><%= user.created_at %></td>
+          <td>
+            <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", user_path(user) %> |
+            <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_user_path(user) %> |
+            <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>
+        <% end -%>
+    </tbody>
+</table>
+             
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

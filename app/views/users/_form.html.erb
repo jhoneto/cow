@@ -1,0 +1,20 @@
+<%= f.inputs do %>
+   
+    <%= f.input :email%>
+ 
+    <%= f.input :encrypted_password%>
+ 
+    <%= f.input :salt%>
+ 
+    <%= f.input :confirmation_token%>
+ 
+    <%= f.input :remember_token%>
+ 
+    <%= f.input :name%>
+ 
+    <%= f.input :account_id%>
+    
+<% end -%>
+<div class="actions">
+  <input type="submit" class="btn large primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), users_path, :class => "btn large" %>
+</div>
