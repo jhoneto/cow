@@ -9,7 +9,8 @@ class SessionsController < Clearance::SessionsController
     if @user.nil?
       redirect_to root_path
     else
-      sign_in(@user)
+      sign_in(@user) 
+      session[:account_id] = @user.account_id
       redirect_back_or(url_after_create)
     end
   end

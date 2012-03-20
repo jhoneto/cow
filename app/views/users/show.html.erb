@@ -1,4 +1,4 @@
-<ul class="tabs"> 
+<ul class="nav nav-tabs"> 
 	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", users_path  %></li> 
 	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_user_path %></li>  
 	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", user_path %></li>
@@ -42,8 +42,8 @@
                   
 
 <div class="actions">
-	<%= link_to t("ootstrap-rails.edit", :default=> "Edit"), edit_user_path(@user), :class => "btn large primary" %>
-    <%= link_to t("ootstrap-rails.delete", :default => "Delete"), user_path(@user), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_user_path(@user), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), user_path(@user), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
 </div>      
     
 <% content_for :sidebar, render(:partial => 'sidebar') -%>
