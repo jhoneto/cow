@@ -3,5 +3,5 @@ class User < ActiveRecord::Base
   belongs_to :account
   has_many :user_roles     
   
-  scope :by_account, lambda {|account| {:conditions => {:account_id => 1} } }
+  scope :by_account, lambda {|account| {:conditions => {:account_id => account} } }
 end

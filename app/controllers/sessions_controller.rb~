@@ -1,7 +1,0 @@
-class SessionsController < Clearance::SessionsController
-  
-  def url_after_create
-    home_index_path
-  end
-
-end
