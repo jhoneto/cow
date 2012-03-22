@@ -13,7 +13,9 @@ Cow::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :home
+  resources :specialties
   resources :users
+
   match 'sign_in'  => 'welcome#index', :as => 'sign_in'
   resource :session, :controller => 'sessions'
   

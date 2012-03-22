@@ -11,10 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315130014) do
+ActiveRecord::Schema.define(:version => 20120322181915) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "specialties", :force => true do |t|
+    t.integer  "account_id",                :null => false
+    t.string   "name",       :limit => 100, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -40,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20120315130014) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
 
   add_foreign_key "user_roles", "users", :name => "user_roles_user_id_fk"
 

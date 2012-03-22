@@ -1,0 +1,30 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", specialties_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_specialty_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.list_of", :default => "All")  %> <%= t("activerecord.models.specialties" ) %> </h2>
+<table class="table table-striped table-bordered">
+  <thead>             
+    <th>#</th>   
+    <th><%= t("activerecord.attributes.specialty.name", :default => "Name") %></th>
+    <th class="last">&nbsp;</th>
+  </thead>                         
+  <tbody>
+   <% @specialties.each do |specialty| -%>
+   <tr>
+    <td><%= specialty.id %></td>
+    <td><%= link_to specialty.name, specialty_path(specialty) %></td>
+    <td>
+      <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", specialty_path(specialty) %> |
+      <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_specialty_path(specialty) %> |
+      <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", specialty_path(specialty), :method => :delete, :confirm => "#{t("bootstrap-rails.confirm", :default => "Are you sure?")}" %>
+    </td>
+  </tr>
+  <% end -%>
+</tbody>
+</table>
+<%= will_paginate @specialties %> 
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
