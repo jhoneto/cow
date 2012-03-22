@@ -1,8 +1,6 @@
-class User < ActiveRecord::Base
-  include Clearance::User
-  belongs_to :account
-  has_many :user_roles
-
+class CowModel < ActiveRecord::Base
+	
+	
   def self.search(parameters, account)
     query = self.scoped
     query = query.where('account_id = ?', account)
@@ -13,5 +11,4 @@ class User < ActiveRecord::Base
     end
     query
   end
-
 end
