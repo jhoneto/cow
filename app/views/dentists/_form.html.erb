@@ -1,0 +1,37 @@
+<script>
+jQuery(function($){
+    $("#dentist_cpf").mask("999.999.999-99");
+    $("#dentist_home_phone").mask("(99) 9999-9999");
+    $("#dentist_cel_phone").mask("(99) 9999-9999");
+    $("#dentist_work_phone").mask("(99) 9999-9999");
+});
+</script>
+
+<%= f.inputs do %>
+   
+    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+    
+    <%= f.input :name %>
+ 
+    <%= f.input :nickname%>
+ 
+    <%= f.input :cpf, :id => "documento" %>
+ 
+    <%= f.input :cro_uf%>
+ 
+    <%= f.input :cro_number%>
+ 
+    <%= f.input :home_phone%>
+ 
+    <%= f.input :cel_phone%>
+ 
+    <%= f.input :work_phone%>
+ 
+    <%= f.input :obs%>
+
+    
+<% end -%>
+
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), dentists_path, :class => "btn" %>
+</div>

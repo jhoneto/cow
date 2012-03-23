@@ -10,6 +10,7 @@
     <!-- Le styles -->
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "jquery.maskedinput" %>
     <%= csrf_meta_tags %>
     
     
@@ -52,7 +53,7 @@
     </div>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Cadastros</li>
@@ -73,7 +74,7 @@
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
+        <div class="span10">
           <%= yield %>
         </div><!--/span-->
       </div><!--/row-->

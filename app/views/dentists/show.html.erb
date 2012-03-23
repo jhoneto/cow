@@ -1,0 +1,65 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", dentists_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_dentist_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", dentist_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.account_id", :default =>"Account") %>:</b>
+      <%= @dentist.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.name", :default =>"Name") %>:</b>
+      <%= @dentist.name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.nickname", :default =>"Nickname") %>:</b>
+      <%= @dentist.nickname %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.cpf", :default =>"Cpf") %>:</b>
+      <%= @dentist.cpf %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.cro_uf", :default =>"Cro uf") %>:</b>
+      <%= @dentist.cro_uf %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.cro_number", :default =>"Cro number") %>:</b>
+      <%= @dentist.cro_number %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.home_phone", :default =>"Home phone") %>:</b>
+      <%= @dentist.home_phone %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.cel_phone", :default =>"Cel phone") %>:</b>
+      <%= @dentist.cel_phone %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.work_phone", :default =>"Work phone") %>:</b>
+      <%= @dentist.work_phone %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.dentist.obs", :default =>"Obs") %>:</b>
+      <%= @dentist.obs %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_dentist_path(@dentist), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), dentist_path(@dentist), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+
