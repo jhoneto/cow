@@ -7,11 +7,18 @@ jQuery(function($){
 });
 </script>
 
+<style type="text/css">
+  textarea{
+    width:80%;
+    height:100px;
+  }
+</style>
+
 <%= f.inputs do %>
    
     <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
     
-    <%= f.input :name %>
+    <%= f.input :name, :html_options=> {:size => "300px"} %>
  
     <%= f.input :nickname%>
  

@@ -4,7 +4,7 @@
 </ul>
 <h2 class="title"><%= t("bootstrap-rails.new", :default => "New")%>  <%= t("activerecord.models.dentist") %></h2> 
 <div class="row-fluid">
-	<%= semantic_form_for @dentist do |f| -%>
+	<%= semantic_form_for @dentist, :html => {:class => "form-horizontal"} do |f| -%>
 	<%= f.semantic_errors %>
 	<%= render :partial => "form", :locals => {:f => f} %>
 	<% end -%>
