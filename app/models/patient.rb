@@ -1,0 +1,4 @@
+class Patient < CowModel         
+  
+  
+end

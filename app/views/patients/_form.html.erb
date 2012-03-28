@@ -1,0 +1,34 @@
+<%= f.inputs do %>
+   
+    <%= f.input :account_id%>
+ 
+    <%= f.input :name%>
+ 
+    <%= f.input :rg%>
+ 
+    <%= f.input :rg_orgao%>
+ 
+    <%= f.input :cpf%>
+ 
+    <%= f.input :date_of_birth%>
+ 
+    <%= f.input :sex%>
+ 
+    <%= f.input :nationality%>
+ 
+    <%= f.input :place_of_birth%>
+ 
+    <%= f.input :marital_status%>
+ 
+    <%= f.input :occupation%>
+ 
+    <%= f.input :home_phone%>
+ 
+    <%= f.input :cel_phone%>
+ 
+    <%= f.input :work_phone%>
+    
+<% end -%>
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), patients_path, :class => "btn" %>
+</div>

@@ -1,0 +1,85 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", patients_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_patient_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", patient_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.account_id", :default =>"Account") %>:</b>
+      <%= @patient.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.name", :default =>"Name") %>:</b>
+      <%= @patient.name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.rg", :default =>"Rg") %>:</b>
+      <%= @patient.rg %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.rg_orgao", :default =>"Rg orgao") %>:</b>
+      <%= @patient.rg_orgao %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.cpf", :default =>"Cpf") %>:</b>
+      <%= @patient.cpf %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.date_of_birth", :default =>"Date of birth") %>:</b>
+      <%= @patient.date_of_birth %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.sex", :default =>"Sex") %>:</b>
+      <%= @patient.sex %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.nationality", :default =>"Nationality") %>:</b>
+      <%= @patient.nationality %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.place_of_birth", :default =>"Place of birth") %>:</b>
+      <%= @patient.place_of_birth %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.marital_status", :default =>"Marital status") %>:</b>
+      <%= @patient.marital_status %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.occupation", :default =>"Occupation") %>:</b>
+      <%= @patient.occupation %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.home_phone", :default =>"Home phone") %>:</b>
+      <%= @patient.home_phone %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.cel_phone", :default =>"Cel phone") %>:</b>
+      <%= @patient.cel_phone %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.patient.work_phone", :default =>"Work phone") %>:</b>
+      <%= @patient.work_phone %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_patient_path(@patient), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), patient_path(@patient), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+

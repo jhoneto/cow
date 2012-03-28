@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", patients_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_patient_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> <%= t("activerecord.models.patients") %> </h2>
+<table class="table table-striped table-bordered">
+    <thead>             
+      <th>#</th>   
+            <th><%= t("activerecord.attributes.patient.account_id", :default => "Account_id") %></th>
+            <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+      	<% @patients.each do |patient| -%>
+        <tr>
+          <td><%= patient.id %></td>
+                    <td><%= link_to patient.account_id, patient_path(patient) %></td>
+                    <td><%= patient.created_at %></td>
+          <td>
+            <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", patient_path(patient) %> |
+            <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_patient_path(patient) %> |
+            <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", patient_path(patient), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>
+        <% end -%>
+    </tbody>
+</table>
+             
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

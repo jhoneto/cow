@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323130302) do
+ActiveRecord::Schema.define(:version => 20120327203015) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -30,6 +30,25 @@ ActiveRecord::Schema.define(:version => 20120323130302) do
     t.string   "cel_phone",  :limit => 30,  :null => false
     t.string   "work_phone", :limit => 30
     t.text     "obs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patients", :force => true do |t|
+    t.integer  "account_id",                    :null => false
+    t.string   "name",           :limit => 200, :null => false
+    t.string   "rg",             :limit => 30
+    t.string   "rg_orgao",       :limit => 50
+    t.string   "cpf",            :limit => 20
+    t.date     "date_of_birth"
+    t.string   "sex",            :limit => 1
+    t.string   "nationality",    :limit => 200
+    t.string   "place_of_birth", :limit => 200
+    t.string   "marital_status", :limit => 1
+    t.string   "occupation",     :limit => 200
+    t.string   "home_phone",     :limit => 30
+    t.string   "cel_phone",      :limit => 30,  :null => false
+    t.string   "work_phone",     :limit => 30
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,6 +83,8 @@ ActiveRecord::Schema.define(:version => 20120323130302) do
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
   add_foreign_key "dentists", "accounts", :name => "dentists_account_id_fk"
+
+  add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 
   add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
 

@@ -13,7 +13,8 @@ Cow::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :home
-  resources :dentists
+  resources :dentists   
+  resources :patients
   resources :specialties
   resources :users
 
