@@ -9,4 +9,9 @@ class DentistsController < CowController
       format.xml { render :xml => @dentists}
     end
   end
+
+  def new
+  	@dentist = Dentist.new
+  	@dentist.dentist_specialties.build
+  end
 end
