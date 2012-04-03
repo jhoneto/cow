@@ -14,4 +14,7 @@ class DentistsController < CowController
   	@dentist = Dentist.new
   	@dentist.dentist_specialties.build
   end
+
+  def dentist_specialty
+  end
 end
