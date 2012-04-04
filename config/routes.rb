@@ -15,7 +15,7 @@ Cow::Application.routes.draw do
   resources :home
   resources :dentists do
     member do
-      get 'add_specialty'
+      post 'add_specialty'
     end
   end   
   resources :patients

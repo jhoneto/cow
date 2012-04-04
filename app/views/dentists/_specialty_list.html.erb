@@ -1,0 +1,20 @@
+<h3>Especialidades</h3>
+  <a data-toggle="modal" href="#modal-add-specialty">Adicionar</a>
+  <table class="table table-striped table-bordered ">
+    <thead>             
+      <th>#</th>   
+      <th>Especialidade</th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+     <% dentist.specialties.each do |s| -%>
+     <tr>
+      <td><%=s.id%></td>
+      <td><%=s.name%></td>
+      <td>
+        <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", dentist_path(dentist), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>

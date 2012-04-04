@@ -1,43 +1,29 @@
 <script>
-  $(function(){
-$('#close').click(function(){
-$('#modal-alter-password').modal('hide');
-});
+$(function(){
+	$('#close').click(function(){
+		$('#modal-add-specialty').modal('hide');
+	});
 })
 </script>
-<div id="modal-alter-password" class="modal hide fade">
-<div class="modal-header">
-<h3>Alterar senha</h3>
+<div id="modal-add-specialty" class="modal hide fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>Adicionar Especialidade</h3>
+	</div>
+	<%= form_tag(add_specialty_dentist_path, :method => 'post', :remote => true) do %>
+	<div class="modal-body">
+		<%= hidden_field_tag :dentist_id, dentist_id %>
+		<div class="clearfix">
+			<label for="xlInput"Selecione uma especialidade</label>
+			<div class="input">
+				<%= select_tag :specialty_id ,  options_from_collection_for_select(Specialty.all, :id, :name), {:class => "xlarge"}%>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal-footer">
+		<a href="#" id="close" class="btn">Cancelar</a>
+		<input type="submit" class="btn btn-primary" value="Adicionar">
+	</div>
+	<% end -%>
 </div>
-<% form_tag(alter_password_cc_user_path(current_user), :method => 'post') do %>
-<div class="modal-body">
-<div class="clearfix">
-<label for="xlInput">Nova senha</label>
-<div class="input">
-<%= password_field_tag :password_new, '', :class => "xlarge" %>
-</div>
-</div>
-<div class="clearfix">
-<label for="xlInput">Confirmação</label>
-<div class="input">
-<%= password_field_tag :password_confirmation, '', :class => "xlarge" %>
-</div>
-</div>
-
-</div>
-    <div class="modal-footer">
-<input type="submit" class="btn primary" value="Salvar">
-<a href='#' id="close" class ="btn secondary">Sair</a>
-</div>
-<% end -%>
-</div>
-
-<%= form_tag( add_specialty_dentist_path, :remote => true, :method => :post ) do %>
-<%= hidden_field_tag :dentist_id, dentist_id %>
-<%= select_tag :specialty_id ,  options_from_collection_for_select(Specialty.all, :id, :name), {:class => "xlarge"}%>
-
-<br>
-<input type="submit" class="btn" value="Adiconar">
-
-
-<% end %>

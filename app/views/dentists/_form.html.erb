@@ -1,63 +1,49 @@
 <script>
 jQuery(function($){
-    $("#dentist_cpf").mask("999.999.999-99");
-    $("#dentist_home_phone").mask("(99) 9999-9999");
-    $("#dentist_cel_phone").mask("(99) 9999-9999");
-    $("#dentist_work_phone").mask("(99) 9999-9999");
+  $("#dentist_cpf").mask("999.999.999-99");
+  $("#dentist_home_phone").mask("(99) 9999-9999");
+  $("#dentist_cel_phone").mask("(99) 9999-9999");
+  $("#dentist_work_phone").mask("(99) 9999-9999");
 });
 </script>
 
 <style type="text/css">
-  textarea{
-    width:80%;
-    height:100px;
-  }
+textarea{
+  width:80%;
+  height:100px;
+}
 </style>
 
 
 
 <%= f.inputs do %>
-   
-    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
-    
-    <%= f.input :name %>
- 
-    <%= f.input :nickname%>
- 
-    <%= f.input :cpf, :id => "documento" %>
- 
-    <%= f.input :cro_uf%>
- 
-    <%= f.input :cro_number%>
- 
-    <%= f.input :home_phone%>
- 
-    <%= f.input :cel_phone%>
- 
-    <%= f.input :work_phone%>
- 
-    <%= f.input :obs%>
-    
-<% end -%>
-<h3>Especialidades</h3>
-<table class="table table-striped table-bordered ">
-  <thead>             
-    <th>#</th>   
-    <th>Especialidade</th>
-    <th class="last">&nbsp;</th>
-  </thead>                         
-  <tbody>
-   <% @dentist.specialties do |s| -%>
-   <tr>
-    <td><%= s.name %></td>
-    <td>
-      <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", dentist_path(dentist), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-    </td>
-  </tr>
-  <% end -%>
-</tbody>
-</table>
 
+<%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+
+<%= f.input :name %>
+
+<%= f.input :nickname%>
+
+<%= f.input :cpf, :id => "documento" %>
+
+<%= f.input :cro_uf%>
+
+<%= f.input :cro_number%>
+
+<%= f.input :home_phone%>
+
+<%= f.input :cel_phone%>
+
+<%= f.input :work_phone%>
+
+<%= f.input :obs%>
+
+<% end -%>
+<% unless @dentist.new_record? %>
+<div id="tabela_especialidades">
+  <%= render :partial => "specialty_list", :locals => {:dentist => @dentist} %>
+</div>
+<% end %>
 <div class="actions">
   <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), dentists_path, :class => "btn" %>
 </div>
