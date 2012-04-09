@@ -1,49 +1,62 @@
 <script>
 jQuery(function($){
-  $("#dentist_cpf").mask("999.999.999-99");
-  $("#dentist_home_phone").mask("(99) 9999-9999");
-  $("#dentist_cel_phone").mask("(99) 9999-9999");
-  $("#dentist_work_phone").mask("(99) 9999-9999");
+	$("#dentist_cpf").mask("999.999.999-99");
+	$("#dentist_home_phone").mask("(99) 9999-9999");
+	$("#dentist_cel_phone").mask("(99) 9999-9999");
+	$("#dentist_work_phone").mask("(99) 9999-9999");
 });
 </script>
 
-<style type="text/css">
-textarea{
-  width:80%;
-  height:100px;
-}
-</style>
+
 
 
 
 <%= f.inputs do %>
+<div class="row-fluid">
+	<div class="span8">
+		<%= f.input :name, :input_html => {:class => 'span7'}%>
+	</div>
+	<div class="span4">
+		<%= f.input :nickname, :input_html => {:class => 'span3'}%>
+	</div>
+</div>
 
 <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+<div class="row-fluid">
+	<div class="span4">
+		<%= f.input :cpf, :id => "documento", :input_html => {:class => 'span3'} %> 
+	</div>
+	<div class="span4">
+		<%= f.input :cro_uf, :input_html => {:class => 'span3'}%>
+	</div>
+	<div class="span4">
+		<%= f.input :cro_number, :input_html => {:class => 'span3'}%>
+	</div>
+</div>
 
-<%= f.input :name %>
-
-<%= f.input :nickname%>
-
-<%= f.input :cpf, :id => "documento" %>
-
-<%= f.input :cro_uf%>
-
-<%= f.input :cro_number%>
-
-<%= f.input :home_phone%>
-
-<%= f.input :cel_phone%>
-
-<%= f.input :work_phone%>
-
-<%= f.input :obs%>
+<div class="row-fluid">
+	<div class="span4">
+		<%= f.input :home_phone, :input_html => {:class => 'span3'} %> 
+	</div>
+	<div class="span4">
+		<%= f.input :cel_phone, :input_html => {:class => 'span3'}%>
+	</div>
+	<div class="span4">
+		<%= f.input :work_phone, :input_html => {:class => 'span3'}%>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+      <%= f.input :obs, :input_html => {:class => 'span10'}%>
+    </div>
+</div>
 
 <% end -%>
 <% unless @dentist.new_record? %>
 <div id="tabela_especialidades">
-  <%= render :partial => "specialty_list", :locals => {:dentist => @dentist} %>
+	<%= render :partial => "specialty_list", :locals => {:dentist => @dentist} %>
 </div>
 <% end %>
 <div class="actions">
-  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), dentists_path, :class => "btn" %>
+	<input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), dentists_path, :class => "btn" %>
 </div>

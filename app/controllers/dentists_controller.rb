@@ -22,4 +22,25 @@ class DentistsController < CowController
     ds.save
     @dentist = Dentist.find(params[:dentist_id])
   end
+  
+  def remove_specialty
+    ds = DentistSpecialties.find(params[:id])
+    dentist_id = ds.dentist_id
+    ds.destroy
+    @dentist = Dentist.find(dentist_id)
+  end
+  
+  def add_horary
+    time = Timetable.new
+    
+    time.save
+    @dentist = Dentist.find(params[:dentist_id])
+  end
+  
+  def remove_horary
+    time = Timetable.find(params[:id])
+    dentist_id = time.dentist_id
+    time.destroy
+    @dentist = Dentist.find(dentist_id)
+  end
 end

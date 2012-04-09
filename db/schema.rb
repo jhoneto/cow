@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329142531) do
+ActiveRecord::Schema.define(:version => 20120405122437) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(:version => 20120329142531) do
     t.datetime "updated_at"
   end
 
+  create_table "timetables", :force => true do |t|
+    t.integer  "dentist_id", :null => false
+    t.integer  "day_week",   :null => false
+    t.time     "start_time", :null => false
+    t.time     "stop_time",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_roles", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.integer  "role",       :null => false
@@ -97,6 +106,8 @@ ActiveRecord::Schema.define(:version => 20120329142531) do
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 
   add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
+
+  add_foreign_key "timetables", "dentists", :name => "timetables_dentist_id_fk"
 
   add_foreign_key "user_roles", "users", :name => "user_roles_user_id_fk"
 
