@@ -1,0 +1,22 @@
+<h3>Horário de atendimento</h3>
+  <a data-toggle="modal" href="#modal-add-horary">Adicionar</a>
+  <table class="table table-striped table-bordered ">
+    <thead>             
+      <th>Dia</th>
+      <th>Início</th>
+      <th>Fim</th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+     <% dentist.timetables.each do |t| -%>
+     <tr>
+      <td><%=Day::DAY[t.day_week]%></td>
+      <td><%=t.start_time.strftime("%H:%M")%></td>
+      <td><%=t.stop_time.strftime("%H:%M")%></td>
+      <td>
+        <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", remove_horary_dentist_path(t), :remote => true, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>

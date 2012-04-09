@@ -16,8 +16,8 @@ Cow::Application.routes.draw do
   resources :dentists do
     member do
       post   'add_specialty'
-      delete 'remove_specialty'
-      post   'add_horaty'
+      post   'remove_specialty'
+      post   'add_horary'
       delete 'remove_horary'
     end
   end   

@@ -9,6 +9,10 @@
 <%= render :partial => "specialty", :locals => {:dentist_id => @dentist.id} %>                           
 </div>
 
+<div id="add_horary_window">
+<%= render :partial => "timetable", :locals => {:dentist_id => @dentist.id} %>                           
+</div>
+
 <%= semantic_form_for @dentist do |f| -%>
 <%= f.semantic_errors %>    
   <%= render :partial => "form", :locals => {:f => f} %>

@@ -53,6 +53,9 @@ jQuery(function($){
 
 <% end -%>
 <% unless @dentist.new_record? %>
+<div id="tabela_horarios">
+	<%= render :partial => "timetable_list", :locals => {:dentist => @dentist} %>
+</div>
 <div id="tabela_especialidades">
 	<%= render :partial => "specialty_list", :locals => {:dentist => @dentist} %>
 </div>

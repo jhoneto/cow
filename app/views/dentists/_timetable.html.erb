@@ -1,0 +1,46 @@
+<script>
+$(function(){
+	$('#close').click(function(){
+		$('#modal-add-horary').modal('hide');
+	});
+});
+
+jQuery(function($){
+	$("#start_time").mask("99:99");
+	$("#stop_time").mask("99:99");
+});
+</script>
+<div id="modal-add-horary" class="modal hide fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>Adicionar Horário</h3>
+	</div>
+	<%= form_tag(add_horary_dentist_path, :method => 'post', :remote => true, :html => {:class => "form-vertical"}) do %>
+	<div class="modal-body">
+		<%= hidden_field_tag :dentist_id, dentist_id %>
+		<div class="clearfix">
+			<label for="xlInput">Dia da semana</label>
+			<div class="input">
+			  <%= select_tag :day_week , options_for_select(Day::DAY_LIST)%>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="xlInput">Horário de início</label>
+			<div class="input">
+			  <%= text_field_tag :start_time%>	
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="xlInput">Horário de fim</label>
+			<div class="input">
+			  <%= text_field_tag :stop_time%>	
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal-footer">
+		<a href="#" id="close" class="btn">Cancelar</a>
+		<input type="submit" class="btn btn-primary" value="Adicionar">
+	</div>
+	<% end -%>
+</div>

@@ -1,6 +1,9 @@
 class DentistsController < CowController
 	inherit_resources
 
+  custom_actions :resource => [:add_specialty, :remove_specialty]
+
+
   def index
     @dentists = Dentist.search(params, current_user.account_id).paginate(:page => params[:page])
 
@@ -32,7 +35,10 @@ class DentistsController < CowController
   
   def add_horary
     time = Timetable.new
-    
+    time.dentist_id = params[:dentist_id]
+    time.day_week = params[:day_week]
+    time.start_time = params[:start_time]
+    time.stop_time = params[:stop_time]
     time.save
     @dentist = Dentist.find(params[:dentist_id])
   end
