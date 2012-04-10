@@ -1,0 +1,35 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", procedures_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_procedure_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", procedure_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.procedure.account_id", :default =>"Account") %>:</b>
+      <%= @procedure.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.procedure.tuss", :default =>"Tuss") %>:</b>
+      <%= @procedure.tuss %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.procedure.name", :default =>"Name") %>:</b>
+      <%= @procedure.name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.procedure.active", :default =>"Active") %>:</b>
+      <%= @procedure.active %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_procedure_path(@procedure), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), procedure_path(@procedure), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+

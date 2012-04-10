@@ -1,0 +1,14 @@
+<%= f.inputs do %>
+   
+    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+
+    <%= f.input :active%>
+ 
+    <%= f.input :tuss%>
+ 
+    <%= f.input :name%>
+    
+<% end -%>
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), procedures_path, :class => "btn" %>
+</div>

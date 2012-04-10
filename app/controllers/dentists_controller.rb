@@ -13,11 +13,6 @@ class DentistsController < CowController
     end
   end
 
-  def new
-  	@dentist = Dentist.new
-  	@dentist.dentist_specialties.build
-  end
-
   def add_specialty
     ds = DentistSpecialties.new
     ds.dentist_id = params[:dentist_id]

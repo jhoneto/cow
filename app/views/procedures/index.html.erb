@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", procedures_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_procedure_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> <%= t("activerecord.models.procedures") %> </h2>
+<table class="table table-striped table-bordered">
+  <thead>             
+    <th>#</th>   
+    <th><%= t("activerecord.attributes.procedure.name", :default => "Name") %></th>
+    <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+    <th class="last">&nbsp;</th>
+  </thead>                         
+  <tbody>
+   <% @procedures.each do |procedure| -%>
+   <tr>
+    <td><%= procedure.id %></td>
+    <td><%= link_to procedure.name, procedure_path(procedure) %></td>
+    <td><%= procedure.created_at %></td>
+    <td>
+      <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", procedure_path(procedure) %> |
+      <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_procedure_path(procedure) %> |
+      <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", procedure_path(procedure), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+    </td>
+  </tr>
+  <% end -%>
+</tbody>
+</table>
+
+<%= will_paginate @procedures %>
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

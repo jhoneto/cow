@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405122437) do
+ActiveRecord::Schema.define(:version => 20120410173926) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(:version => 20120405122437) do
     t.datetime "updated_at"
   end
 
+  create_table "procedures", :force => true do |t|
+    t.integer  "account_id",                                 :null => false
+    t.string   "tuss",       :limit => 20
+    t.string   "name",                                       :null => false
+    t.boolean  "active",                   :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "specialties", :force => true do |t|
     t.integer  "account_id",                :null => false
     t.string   "name",       :limit => 100, :null => false
@@ -104,6 +113,8 @@ ActiveRecord::Schema.define(:version => 20120405122437) do
   add_foreign_key "dentists", "accounts", :name => "dentists_account_id_fk"
 
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
+
+  add_foreign_key "procedures", "accounts", :name => "procedures_account_id_fk"
 
   add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
 
