@@ -1,33 +1,73 @@
+<script>
+jQuery(function($){
+    $("#patient_cpf").mask("999.999.999-99");
+    $("#patient_home_phone").mask("(99) 9999-9999");
+    $("#patient_cel_phone").mask("(99) 9999-9999");
+    $("#patient_work_phone").mask("(99) 9999-9999");
+    $("#patient_date_of_birth_str").mask("99/99/9999");
+});
+</script>
+
 <%= f.inputs do %>
    
-    <%= f.input :account_id%>
- 
-    <%= f.input :name%>
- 
-    <%= f.input :rg%>
- 
-    <%= f.input :rg_orgao%>
- 
-    <%= f.input :cpf%>
- 
-    <%= f.input :date_of_birth%>
- 
-    <%= f.input :sex%>
- 
-    <%= f.input :nationality%>
- 
-    <%= f.input :place_of_birth%>
- 
-    <%= f.input :marital_status%>
- 
-    <%= f.input :occupation%>
- 
-    <%= f.input :home_phone%>
- 
-    <%= f.input :cel_phone%>
- 
-    <%= f.input :work_phone%>
+    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+    <div class="row">
+        <div class="span8">
+            <%= f.input :name, :input_html => {:class => 'span8'}%>
+        </div>
+        
+    </div>
+    <div class="row">        
+        <div class="span2">
+            <%= f.input :home_phone, :input_html => {:class => 'span2'}%>
+        </div>
+        <div class="span2">
+            <%= f.input :cel_phone, :input_html => {:class => 'span2'}%>
+        </div>
+        <div class="span2">
+            <%= f.input :work_phone, :input_html => {:class => 'span2'}%>
+        </div>
+        <div class="span2">
+            <%= f.input :date_of_birth_str, :input_html => {:class => 'span2'}%>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="span3">
+            <%= f.input :cpf, :input_html => {:class => 'span3'}%>
+        </div>
+        <div class="span3">
+            <%= f.input :rg, :input_html => {:class => 'span3'}%>
+        </div>
+        <div class="span2">
+            <%= f.input :rg_orgao, :input_html => {:class => 'span2'}%>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">
+            <%= f.input :sex, :as => :select, :collection => [["Masculino", "M"], ["Feminino", "F"]], :input_html => {:class => 'span2'}%>
+        </div>
+        <div class="span3">
+            <%= f.input :marital_status, :input_html => {:class => 'span3'}%>
+        </div>
+        <div class="span3">
+            <%= f.input :occupation, :input_html => {:class => 'span3'}%>
+        </div>
+        
+    </div>
+    <div class="row" >
+        <div class="span4">
+            <%= f.input :nationality, :input_html => {:class => 'span4'}%>
+        </div>
+        <div class="span4">
+            <%= f.input :place_of_birth, :input_html => {:class => 'span4'}%>
+        </div>
+    </div>
+
     
+   
 <% end -%>
 <div class="actions">
   <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), patients_path, :class => "btn" %>
