@@ -1,0 +1,12 @@
+<ul class="tabs nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", schedules_path  %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_schedule_path %></li>
+</ul>
+<h2 class="title"><%= t("bootstrap-rails.new", :default => "New")%>  <%= t("activerecord.models.schedule") %></h2> 
+<%= semantic_form_for @schedule do |f| -%>
+<%= f.semantic_errors %>
+  <%= render :partial => "form", :locals => {:f => f} %>
+<% end -%>
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

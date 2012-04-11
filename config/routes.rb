@@ -23,6 +23,7 @@ Cow::Application.routes.draw do
   end   
   resources :patients
   resources :procedures
+  resources :schedules
   resources :specialties
   resources :users
 

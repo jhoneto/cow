@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410173926) do
+ActiveRecord::Schema.define(:version => 20120411125533) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -69,6 +69,21 @@ ActiveRecord::Schema.define(:version => 20120410173926) do
     t.datetime "updated_at"
   end
 
+  create_table "schedules", :force => true do |t|
+    t.integer  "account_id",                                    :null => false
+    t.integer  "patient_id"
+    t.integer  "patient_name",                                  :null => false
+    t.integer  "dentist_id",                                    :null => false
+    t.date     "date",                                          :null => false
+    t.time     "time",                                          :null => false
+    t.boolean  "fit",                        :default => false, :null => false
+    t.integer  "status",                     :default => 1,     :null => false
+    t.text     "obs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "phone",        :limit => 20
+  end
+
   create_table "specialties", :force => true do |t|
     t.integer  "account_id",                :null => false
     t.string   "name",       :limit => 100, :null => false
@@ -115,6 +130,10 @@ ActiveRecord::Schema.define(:version => 20120410173926) do
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 
   add_foreign_key "procedures", "accounts", :name => "procedures_account_id_fk"
+
+  add_foreign_key "schedules", "accounts", :name => "schedules_account_id_fk"
+  add_foreign_key "schedules", "dentists", :name => "schedules_dentist_id_fk"
+  add_foreign_key "schedules", "patients", :name => "schedules_patient_id_fk"
 
   add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
 

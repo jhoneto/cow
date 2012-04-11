@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", schedules_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_schedule_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> <%= t("activerecord.models.schedules") %> </h2>
+<table class="table table-striped table-bordered">
+    <thead>             
+      <th>#</th>   
+            <th><%= t("activerecord.attributes.schedule.account_id", :default => "Account_id") %></th>
+            <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+      	<% @schedules.each do |schedule| -%>
+        <tr>
+          <td><%= schedule.id %></td>
+                    <td><%= link_to schedule.account_id, schedule_path(schedule) %></td>
+                    <td><%= schedule.created_at %></td>
+          <td>
+            <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", schedule_path(schedule) %> |
+            <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_schedule_path(schedule) %> |
+            <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", schedule_path(schedule), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>
+        <% end -%>
+    </tbody>
+</table>
+<%= will_paginate @schedules %>             
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
