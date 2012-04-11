@@ -26,6 +26,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem "bootstrap-sass", "~> 2.0.1"
+  gem 'jquery-ui-rails'
+  gem 'jquery-ui-themes'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 

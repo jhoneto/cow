@@ -1,25 +1,31 @@
+<script>
+$(function() {
+    $( ".datepicker" ).datepicker();
+});
+
+jQuery(function($){
+    $("#schedule_time").mask("99:99");
+});
+</script>
+
 <%= f.inputs do %>
-   
-    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
- 
-    <%= f.input :patient_id%>
- 
-    <%= f.input :patient_name%>
- 
-    <%= f.input :dentist_id%>
- 
-    <%= f.input :date%>
- 
-    <%= f.input :time%>
- 
-    <%= f.input :fit%>
- 
-    <%= f.input :status%>
- 
-    <%= f.input :obs%>
- 
-    <%= f.input :phone%>
-    
+
+<%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+
+<%= f.input :fit%>
+
+<%= f.input :dentist%>
+
+<%= f.input :date, :as => :string, :input_html => {:class => 'datepicker'}%>
+
+<%= f.input :time, :as => :string%>
+
+<%= f.input :patient_name%>
+
+<%= f.input :phone%>
+
+<%= f.input :obs%>
+
 <% end -%>
 <div class="actions">
   <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), schedules_path, :class => "btn" %>
