@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411125533) do
+ActiveRecord::Schema.define(:version => 20120412131625) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -70,18 +70,19 @@ ActiveRecord::Schema.define(:version => 20120411125533) do
   end
 
   create_table "schedules", :force => true do |t|
-    t.integer  "account_id",                                    :null => false
+    t.integer  "account_id",                                     :null => false
     t.integer  "patient_id"
-    t.integer  "patient_name",                                  :null => false
-    t.integer  "dentist_id",                                    :null => false
-    t.date     "date",                                          :null => false
-    t.time     "time",                                          :null => false
-    t.boolean  "fit",                        :default => false, :null => false
-    t.integer  "status",                     :default => 1,     :null => false
+    t.string   "patient_name", :limit => 200,                    :null => false
+    t.integer  "dentist_id",                                     :null => false
+    t.date     "date",                                           :null => false
+    t.time     "time",                                           :null => false
+    t.boolean  "fit",                         :default => false, :null => false
+    t.integer  "status",                      :default => 1,     :null => false
     t.text     "obs"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone",        :limit => 20
+    t.boolean  "reminder",                    :default => false, :null => false
   end
 
   create_table "specialties", :force => true do |t|

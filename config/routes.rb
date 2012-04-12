@@ -23,7 +23,11 @@ Cow::Application.routes.draw do
   end   
   resources :patients
   resources :procedures
-  resources :schedules
+  resources :schedules do
+    collection do
+      get   'calendar'
+    end
+  end
   resources :specialties
   resources :users
 
