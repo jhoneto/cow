@@ -1,4 +1,16 @@
 <script>
+$(function() {
+    $( ".datepicker" ).datepicker();
+    $('#close').click(function(){
+      $('#myModal').modal('hide');
+    });
+});
+
+jQuery(function($){
+    $("#schedule_time").mask("99:99");
+    $("#schedule_phone").mask("(99) 9999-9999");
+});
+
 $(document).ready(function() {
 
 	var date = new Date();
@@ -15,7 +27,7 @@ $(document).ready(function() {
 		},
 		defaultView: 'agendaDay',
 		height: 500,
-		slotMinutes: 15,
+		slotMinutes: 30,
 
 		loading: function(bool){
 			if (bool)
@@ -27,7 +39,7 @@ $(document).ready(function() {
         // a future calendar might have many sources.
         eventSources: [{
         	url: '/schedules/calendar',        	
-        	textColor: 'black',
+        	textColor: 'white',
         	ignoreTimezone: true
         }],
 
@@ -36,49 +48,117 @@ $(document).ready(function() {
         allDayText: 'Lembretes',
         dragOpacity: "0.5",
         columnFormat: {
-                         month: 'ddd',    // Mon
-                         week: 'ddd d/M', // Mon 9/7
-                         day: 'dddd d/M'  // Monday 9/7
-                      },
+          month: 'ddd',    // Mon
+          week: 'ddd d/M', // Mon 9/7
+          day: 'dddd d/M'  // Monday 9/7
+        },
         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         dayNames: ['Domigo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
         titleFormat: {
-                       month: 'MMMM yyyy',                             // September 2009
-                       week: "d [ MMM] [ yyyy]{ '&#8212;' d MMM yyyy}", // Sep 7 - 13 2009
-                       day: 'dddd, d MMM , yyyy'                  // Tuesday, Sep 8, 2009
-                     },
+          month: 'MMMM yyyy',                             // September 2009
+          week: "d [ MMM] [ yyyy]{ '&#8212;' d MMM yyyy}", // Sep 7 - 13 2009
+          day: 'dddd, d MMM , yyyy'                  // Tuesday, Sep 8, 2009
+        },
         buttonText: {
-                      prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
-                      next:     '&nbsp;&#9658;&nbsp;',  // right triangle
-                      prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
-                      nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
-                      today:    'Hoje',
-                      month:    'Mês',
-                      week:     'Semana',
-                      day:      'Dia'
-                    },
+          prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
+          next:     '&nbsp;&#9658;&nbsp;',  // right triangle
+          prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
+          nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
+          today:    'Hoje',
+          month:    'Mês',
+          week:     'Semana',
+          day:      'Dia'
+        },
         selectable: true,
         select: function(start, end, allDay) {
-				var title = $.prompt('Example 2',{ buttons: { Ok: true, Cancel: false } }); 
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
+          $("#schedule_patient_name").val("");
+          $("#schedule_phone").val("");
+          $("#schedule_obs").val("");
+          var day = start.getDate();
+          var month = start.getMonth() + 1;
+          var year = start.getFullYear();
+          var hour = start.getHours();
+          var minute = start.getMinutes();
+          if (day<= 9) {
+            day = '0' + day;
+          }
+          if (month<= 9) {
+            month = '0' + month;
+          }
+          if (hour<= 9) {
+            hour = '0' + hour;
+          }
+          if (minute<= 9) {
+            minute = '0' + minute;
+          }
+
+          $("#schedule_time").val(hour + ':' + minute);
+          $("#schedule_date").val(day + '/' + month + '/' + year);
+          $("#schedule_reminder").attr('checked', allDay);
+          $('#myModal').on('hide', function () {
+            calendar.fullCalendar( 'refetchEvents' );
+          });
+          $('#myModal').modal('show');      
+
+        },
         editable: true,
         //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
         
-  });
+      });
 });
 </script>
-<div id='calendar'></div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <%= semantic_form_for(Schedule.new, :remote => true) do |f| -%>
+    <%= f.semantic_errors %>
+      <%= f.inputs do %>
+        <div class="row">
+          <div class="span2">
+            <%= f.input :date, :as => :string, :input_html => {:class => 'datepicker span2'}%>
+          </div>
+          <div class="span1">
+            <%= f.input :time, :as => :string, :input_html => {:class => 'span1'}%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span3">
+            <%= f.input :patient_name, :input_html => {:class => 'span3'}%>
+          </div>
+          <div class="span2">
+            <%= f.input :phone, :input_html => {:class => 'span2'}%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span5">
+            <%= f.input :obs, :input_html => {:class => 'span5', :rows => 2}%>
+          </div>
+        </div>
+        <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+        <%= f.input :fit, :input_html => {:class => "checkbox"}%>
+        <%= f.input :reminder, :input_html => {:readonly => true}%>
+        <%= f.input :dentist%>
+        
+      <% end -%>
+    
+  </div>
+  <div class="modal-footer">
+    <a href="#" id="close" class="btn">Cancelar</a>
+    <input type="submit" class="btn" value="Agendar">
+  </div>
+  <% end -%>
+</div>
+
+<div id='container'>
+  <%= form_tag '#', :method => :get, :class => "well form-search" do%>
+    <label> Dentista: </label>
+    <%= select_tag :dentist_id, options_from_collection_for_select(Dentist.find_all_by_account_id(current_user.account_id), "id", "name", params[:dentist_id]), {:include_blank => true, :class => 'span3'}%>
+    <input type="submit" class="btn" value="Buscar">
+  <% end %>
+  <div id='calendar'></div>
+</div>

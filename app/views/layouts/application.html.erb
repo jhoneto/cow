@@ -10,11 +10,9 @@
     <!-- Le styles -->
     <%= stylesheet_link_tag    "application" %>
     <%= stylesheet_link_tag    "fullcalendar"%>
-    <%= stylesheet_link_tag    "default"%>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "jquery.maskedinput" %>
     <%= javascript_include_tag "fullcalendar" %>
-    <%= javascript_include_tag    "jquery-impromptu"%>
     <%= csrf_meta_tags %>
     
     
@@ -66,7 +64,7 @@
               <li><%= link_to "Pacientes", patients_path%></li>
               <li><%= link_to "Procedimentos", procedures_path%></li>
               <li class="nav-header">Atendimento</li>
-              <li><%= link_to "Consultas", schedules_path%></li>
+              <li><%= link_to "Consultas", calendar_schedules_path%></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
