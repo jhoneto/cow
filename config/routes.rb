@@ -24,6 +24,10 @@ Cow::Application.routes.draw do
   resources :patients
   resources :procedures
   resources :schedules do
+    member do
+      put 'confirm'
+      put 'cancel'
+    end
     collection do
       get   'calendar'
     end

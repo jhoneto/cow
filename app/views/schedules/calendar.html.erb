@@ -1,9 +1,17 @@
+<style type="text/css">
+  li {
+    list-style:none;
+}
+</style>
 <script>
+
 $(function() {
     $( ".datepicker" ).datepicker();
     $('#close').click(function(){
-      $('#myModal').modal('hide');
+      $('#agendamento_window').modal('hide');
     });
+
+    
 });
 
 jQuery(function($){
@@ -17,6 +25,10 @@ $(document).ready(function() {
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
+
+  function url_events(){
+    '/schedules/calendar?by_dentist=' + $("select#by_dentist").val();
+  }
 
 	var calendar = $('#calendar').fullCalendar({
 		editable: true,
@@ -36,32 +48,46 @@ $(document).ready(function() {
 				$('#loading').hide();
 		},
 
-        // a future calendar might have many sources.
-        eventSources: [{
-        	url: '/schedules/calendar',        	
-        	textColor: 'white',
-        	ignoreTimezone: true
-        }],
+    eventSources: [{
+      events: function(start, end, callback) {
+            $.ajax({
+              url: '/schedules/calendar',
+              dataType: 'json',
+              data: {
+                start: Math.round(start.getTime() / 1000),
+                end: Math.round(end.getTime() / 1000),
+                by_dentist: $("select#by_dentist").val()
+              },
+              success: function(doc) {
+                callback(doc);
+              }
+          });
+        },
+      textColor: 'white',
+      ignoreTimezone: true
+    }],
 
-        timeFormat: 'HH:mm { - HH:mm} ',
-        axisFormat: 'HH:mm { - HH:mm} ',
-        allDayText: 'Lembretes',
-        dragOpacity: "0.5",
-        columnFormat: {
+        // a future calendar might have many sources.
+
+    timeFormat: 'HH:mm { - HH:mm} ',
+    axisFormat: 'HH:mm { - HH:mm} ',
+    allDayText: 'Lembretes',
+    dragOpacity: "0.5",
+    columnFormat: {
           month: 'ddd',    // Mon
           week: 'ddd d/M', // Mon 9/7
           day: 'dddd d/M'  // Monday 9/7
-        },
-        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        dayNames: ['Domigo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-        titleFormat: {
+    },
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    dayNames: ['Domigo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    titleFormat: {
           month: 'MMMM yyyy',                             // September 2009
           week: "d [ MMM] [ yyyy]{ '&#8212;' d MMM yyyy}", // Sep 7 - 13 2009
           day: 'dddd, d MMM , yyyy'                  // Tuesday, Sep 8, 2009
-        },
-        buttonText: {
+    },
+    buttonText: {
           prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
           next:     '&nbsp;&#9658;&nbsp;',  // right triangle
           prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
@@ -70,12 +96,13 @@ $(document).ready(function() {
           month:    'Mês',
           week:     'Semana',
           day:      'Dia'
-        },
-        selectable: true,
-        select: function(start, end, allDay) {
+    },
+    selectable: true,
+    select: function(start, end, allDay) {
           $("#schedule_patient_name").val("");
           $("#schedule_phone").val("");
           $("#schedule_obs").val("");
+          $("#schedule_fit").attr('checked', false);
           var day = start.getDate();
           var month = start.getMonth() + 1;
           var year = start.getFullYear();
@@ -96,28 +123,72 @@ $(document).ready(function() {
 
           $("#schedule_time").val(hour + ':' + minute);
           $("#schedule_date").val(day + '/' + month + '/' + year);
+          $("#schedule_dentist_id").val($("select#by_dentist").val());
           $("#schedule_reminder").attr('checked', allDay);
-          $('#myModal').on('hide', function () {
+          $('#agendamento_window').on('hide', function () {
             calendar.fullCalendar( 'refetchEvents' );
           });
-          $('#myModal').modal('show');      
+          $('#agendamento_window').modal('show');      
 
         },
-        editable: true,
+        editable: false,
         //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
-        
-      });
+        eventClick: function(calEvent, jsEvent, view) {
+          //document.location.href = '/schedules/' + calEvent.id + '/edit'
+          $('#edicao_agendamento_window').modal('show'); 
+          $('#body_edicao').html("<a href='/schedules/" + calEvent.id + "/confirm' data-remote='true' data-method='put' class='btn btn-success'>Confirmar</a> <a href='/schedules/" + calEvent.id + "/cancel' data-remote='true' data-method='put' class='btn btn-danger'>Cancelar</a> <a href='/schedules/" + calEvent.id + "/edit' data-method='get' class='btn'>Editar</a>");
+          $('#edicao_agendamento_window').on('hide', function () {
+            calendar.fullCalendar( 'refetchEvents' );
+          });
+        }
+    });
+
+
+
+  $("#btn_find").click(function() {
+      //location.reload();
+      //calendar.fullCalendar( 'removeEventSource', url_events() );
+      //calendar.fullCalendar( 'addEventSource', url_events() );
+      calendar.fullCalendar( 'refetchEvents' );
+    });
 });
 </script>
-<div class="modal hide fade" id="myModal">
+
+<div class="modal hide fade" id="edicao_agendamento_window">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3>Modal header</h3>
+    <h3>Editar agendamento</h3>
+  </div>
+  <div class="modal-body" id="body_edicao">
+  </div>
+</div>
+
+<div class="modal hide fade" id="agendamento_window">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Novo agendamento</h3>
   </div>
   <div class="modal-body">
     <%= semantic_form_for(Schedule.new, :remote => true) do |f| -%>
     <%= f.semantic_errors %>
       <%= f.inputs do %>
+        <div class="well form-horizontal">
+          <div class="row">
+            <div class="span1">
+              <label class="checkbox">
+                <%= f.input :fit%>
+              </label>
+            </div>
+            <div class="span2">
+              <label class="checkbox">
+                <%= f.input :reminder, :input_html => {:readonly => true}%>
+              </label>
+            </div>
+            <div class="span2">
+              <%= f.input :dentist, :input_html => {:readonly => true, :class => 'span2'}%>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="span2">
             <%= f.input :date, :as => :string, :input_html => {:class => 'datepicker span2'}%>
@@ -139,11 +210,7 @@ $(document).ready(function() {
             <%= f.input :obs, :input_html => {:class => 'span5', :rows => 2}%>
           </div>
         </div>
-        <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
-        <%= f.input :fit, :input_html => {:class => "checkbox"}%>
-        <%= f.input :reminder, :input_html => {:readonly => true}%>
-        <%= f.input :dentist%>
-        
+        <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>        
       <% end -%>
     
   </div>
@@ -155,10 +222,10 @@ $(document).ready(function() {
 </div>
 
 <div id='container'>
-  <%= form_tag '#', :method => :get, :class => "well form-search" do%>
+  <div class="well form-search">
     <label> Dentista: </label>
     <%= select_tag :by_dentist, options_from_collection_for_select(Dentist.find_all_by_account_id(current_user.account_id), "id", "name", params[:dentist_id]), {:include_blank => true, :class => 'span3'}%>
-    <button class="btn">Buscar</button>
-  <% end %>
+    <button class="btn" id="btn_find">Buscar</button>
+  </div>
   <div id='calendar'></div>
 </div>

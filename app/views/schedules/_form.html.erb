@@ -1,4 +1,15 @@
+<style type="text/css">
+  li {
+    list-style:none;
+}
+</style>
+
 <script>
+jQuery(function($){
+    $("#schedule_time").mask("99:99");
+    $("#schedule_phone").mask("(99) 9999-9999");
+});
+
 $(function() {
     $( ".datepicker" ).datepicker();
 });
@@ -10,23 +21,47 @@ jQuery(function($){
 
 <%= f.inputs do %>
 
-<%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+<div class="row">
+	<div class="span1">
+		<label class="checkbox">
+			<%= f.input :fit%>
+		</label>
+	</div>
+	<div class="span2">
+		<label class="checkbox">
+			<%= f.input :reminder%>
+		</label>
+	</div>
+	<div class="span2">
+		<%= f.input :dentist, :input_html => {:class => 'span2'}%>
+	</div>
+</div>
+<div class="row">
+	<div class="span2">
+		<%= f.input :date_str, :as => :string, :input_html => {:class => 'datepicker span2'}%>
+	</div>
+	<div class="span1">
+		<%= f.input :time, :as => :string, :input_html => {:class => 'span1'}%>
+	</div>
+</div>
+<div class="row">
+	<div class="span3">
+		<%= f.input :patient_name, :input_html => {:class => 'span3'}%>
+	</div>
+	<div class="span2">
+		<%= f.input :phone, :input_html => {:class => 'span2'}%>
+	</div>
+</div>
+<div class="row">
+	<div class="span5">
+		<%= f.input :obs, :input_html => {:class => 'span5', :rows => 2}%>
+	</div>
+</div>
+<%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>        
 
-<%= f.input :fit%>
 
-<%= f.input :dentist%>
-
-<%= f.input :date, :as => :string, :input_html => {:class => 'datepicker'}%>
-
-<%= f.input :time, :as => :string%>
-
-<%= f.input :patient_name%>
-
-<%= f.input :phone%>
-
-<%= f.input :obs%>
+<div class="actions">
+	<input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), calendar_schedules_path, :class => "btn" %>
+</div>
 
 <% end -%>
-<div class="actions">
-  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), schedules_path, :class => "btn" %>
-</div>

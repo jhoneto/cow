@@ -1,7 +1,7 @@
 class SchedulesController < CowController
 	inherit_resources
   
-  respond_to :js, :only => :create
+  respond_to :js, :only => [:create, :confirm]
 
 	def index
     @schedules = Schedule.search(params, current_user.account_id).paginate(:page => params[:page])
@@ -10,6 +10,10 @@ class SchedulesController < CowController
         format.html # index.html.erb
         format.xml { render :xml => @schedules}
       end
+  end
+
+  def update
+    update!{calendar_schedules_path}
   end
 
   def calendar
@@ -24,6 +28,24 @@ class SchedulesController < CowController
       format.html # index.html.erb
       format.xml { render :xml => @events }
       format.js { render :json => @events }
+    end
+  end
+
+  def confirm
+    schedule = Schedule.find(params[:id])
+    schedule.status = 2
+    schedule.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def cancel
+    schedule = Schedule.find(params[:id])
+    schedule.status = 3
+    schedule.save
+    respond_to do |format|
+      format.js
     end
   end
 

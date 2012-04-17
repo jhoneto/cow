@@ -1,6 +1,5 @@
 <ul class="nav nav-tabs"> 
-	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", schedules_path  %></li> 
-	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_schedule_path %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", calendar_schedules_path  %></li> 
 	<li class="active"><%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_schedule_path %></li>
 </ul>
 <h2 class="title"><%= t("bootstrap-rails.edit", :default => "Edit") %> <%= t("activerecord.models.schedule") %></h2>                            
