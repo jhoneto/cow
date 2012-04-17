@@ -157,8 +157,8 @@ $(document).ready(function() {
 <div id='container'>
   <%= form_tag '#', :method => :get, :class => "well form-search" do%>
     <label> Dentista: </label>
-    <%= select_tag :dentist_id, options_from_collection_for_select(Dentist.find_all_by_account_id(current_user.account_id), "id", "name", params[:dentist_id]), {:include_blank => true, :class => 'span3'}%>
-    <input type="submit" class="btn" value="Buscar">
+    <%= select_tag :by_dentist, options_from_collection_for_select(Dentist.find_all_by_account_id(current_user.account_id), "id", "name", params[:dentist_id]), {:include_blank => true, :class => 'span3'}%>
+    <button class="btn">Buscar</button>
   <% end %>
   <div id='calendar'></div>
 </div>

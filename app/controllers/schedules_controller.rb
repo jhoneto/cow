@@ -19,7 +19,7 @@ class SchedulesController < CowController
     # this to be starts_at and ends_at to match rails conventions.
     # I'll eventually do that to make the demo a little cleaner.
     @schedule = Schedule.new
-    @events = Schedule.all
+    @events = Schedule.search(params, current_user.account_id)
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @events }
