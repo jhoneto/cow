@@ -1,3 +1,14 @@
+<script>
+jQuery(function($){   
+    $(".valor_monetario").maskMoney({
+         thousands: '.',
+	     decimal: ',',
+	     precision: 2
+     });   
+    $(".valor_monetario").msk();
+});
+</script>
+
 <%= f.inputs do %>
    
     <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
@@ -7,6 +18,8 @@
     <%= f.input :tuss%>
  
     <%= f.input :name%>
+
+    <%= f.input :price_br, :input_html => {:class => "valor_monetario"}%>
     
 <% end -%>
 <div class="actions">
