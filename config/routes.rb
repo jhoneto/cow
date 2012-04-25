@@ -20,7 +20,8 @@ Cow::Application.routes.draw do
       post   'add_horary'
       delete 'remove_horary'
     end
-  end   
+  end
+  resources :estimates   
   resources :patients
   resources :procedures
   resources :schedules do

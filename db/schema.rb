@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419005541) do
+ActiveRecord::Schema.define(:version => 20120425174712) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -39,6 +39,28 @@ ActiveRecord::Schema.define(:version => 20120419005541) do
     t.text     "obs"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "estimate_procedures", :force => true do |t|
+    t.integer  "estimate_id",                                 :null => false
+    t.integer  "procedure_id",                                :null => false
+    t.decimal  "value",        :precision => 18, :scale => 2
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "estimates", :force => true do |t|
+    t.date     "date",                                                          :null => false
+    t.integer  "patient_id",                                                    :null => false
+    t.decimal  "total",       :precision => 18, :scale => 2
+    t.decimal  "discount",    :precision => 18, :scale => 2
+    t.decimal  "final_value", :precision => 18, :scale => 2
+    t.decimal  "balance",     :precision => 18, :scale => 2
+    t.boolean  "canceled",                                   :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "account_id",                                                    :null => false
   end
 
   create_table "patients", :force => true do |t|
@@ -128,6 +150,11 @@ ActiveRecord::Schema.define(:version => 20120419005541) do
   add_foreign_key "dentist_specialties", "specialties", :name => "dentist_specialties_specialty_id_fk"
 
   add_foreign_key "dentists", "accounts", :name => "dentists_account_id_fk"
+
+  add_foreign_key "estimate_procedures", "estimates", :name => "estimate_procedures_estimate_id_fk"
+  add_foreign_key "estimate_procedures", "procedures", :name => "estimate_procedures_procedure_id_fk"
+
+  add_foreign_key "estimates", "accounts", :name => "estimates_account_id_fk"
 
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 

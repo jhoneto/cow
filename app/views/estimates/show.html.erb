@@ -1,0 +1,50 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", estimates_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_estimate_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", estimate_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.date", :default =>"Date") %>:</b>
+      <%= @estimate.date %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.patient_id", :default =>"Patient") %>:</b>
+      <%= @estimate.patient_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.total", :default =>"Total") %>:</b>
+      <%= @estimate.total %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.discount", :default =>"Discount") %>:</b>
+      <%= @estimate.discount %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.final_value", :default =>"Final value") %>:</b>
+      <%= @estimate.final_value %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.balance", :default =>"Balance") %>:</b>
+      <%= @estimate.balance %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.estimate.canceled", :default =>"Canceled") %>:</b>
+      <%= @estimate.canceled %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_estimate_path(@estimate), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), estimate_path(@estimate), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+

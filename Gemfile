@@ -15,6 +15,7 @@ gem "inherited_resources", "~> 1.3.1"
 gem "responders", "~> 0.8.0"
 gem "has_scope", "~> 0.5.1"
 gem "will_paginate", "~> 3.0.3"
+gem "nested_form"
 
 
 group :development do

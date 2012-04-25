@@ -1,0 +1,14 @@
+    <%= f.text_field :date_str%>
+ 
+    <%= f.text_field :patient%>
+ 
+    <%= f.fields_for :estimateprocedures do |procedure_form| %>
+      <%= procedure_form.text_field :amount %>
+      <%= procedure_form.link_to_remove "Remove this task" %>
+    <% end -%>
+
+    <p><%= f.link_to_add "Add a task", :estimateprocedures %></p>
+
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), estimates_path, :class => "btn" %>
+</div>
