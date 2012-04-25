@@ -7,7 +7,7 @@
   <thead>             
     <th>#</th>   
     <th><%= t("activerecord.attributes.procedure.name", :default => "Name") %></th>
-    <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+    <th><%= t("bootstrap-rails.price", :default => "Price")  %></th>
     <th class="last">&nbsp;</th>
   </thead>                         
   <tbody>
@@ -15,7 +15,7 @@
    <tr>
     <td><%= procedure.id %></td>
     <td><%= link_to procedure.name, procedure_path(procedure) %></td>
-    <td><%= procedure.created_at %></td>
+    <td><%= procedure.price_br %></td>
     <td>
       <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", procedure_path(procedure) %> |
       <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_procedure_path(procedure) %> |
