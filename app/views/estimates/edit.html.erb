@@ -5,8 +5,7 @@
 </ul>
 <h2 class="title"><%= t("bootstrap-rails.edit", :default => "Edit") %> <%= t("activerecord.models.estimate") %></h2>                            
 
-<%= semantic_form_for @estimate do |f| -%>
-<%= f.semantic_errors %>    
+<%= nested_form_for @estimate, :html => { :class => "form-vertical" } do |f| %>
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>                        
 

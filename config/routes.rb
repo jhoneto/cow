@@ -21,7 +21,10 @@ Cow::Application.routes.draw do
       delete 'remove_horary'
     end
   end
-  resources :estimates   
+  resources :estimates do
+    get :autocomplete_patient_name, :on => :collection
+    get :autocomplete_procedure_name, :on => :collection
+  end   
   resources :patients
   resources :procedures
   resources :schedules do

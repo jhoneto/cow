@@ -9,6 +9,7 @@
 //= require_tree
 //= require jquery.ui.all
 //= require jquery_nested_form
+//= require autocomplete-rails
 
 
 $(function(){

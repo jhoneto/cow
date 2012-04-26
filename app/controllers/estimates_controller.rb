@@ -1,6 +1,9 @@
 class EstimatesController < CowController
 	inherit_resources
 
+	autocomplete :patient, :name, :extra_data => [:id]
+	autocomplete :procedure, :name, :extra_data => [:id, :price], :full => true
+
 	def index
 	  @estimates = Estimate.search(params, current_user.account_id).paginate(:page => params[:page])
 
@@ -12,7 +15,7 @@ class EstimatesController < CowController
 
 	def new
       @estimate  = Estimate.new
-      4.times { @estimate.estimateprocedures.build }
+      5.times { @estimate.estimateprocedures.build }
     end
 
 end

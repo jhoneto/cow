@@ -3,7 +3,7 @@
 	<li class="active"><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_estimate_path %></li>
 </ul>
 <h2 class="title"><%= t("bootstrap-rails.new", :default => "New")%>  <%= t("activerecord.models.estimate") %></h2> 
-<%= nested_form_for @estimate do |f| %>
+<%= nested_form_for @estimate, :html => { :class => "form-vertical" } do |f| %>
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>
 

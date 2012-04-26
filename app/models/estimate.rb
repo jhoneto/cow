@@ -5,7 +5,13 @@ class Estimate < CowModel
   
   belongs_to :patient
   has_many :estimateprocedures , :class_name => "EstimateProcedure"
-  accepts_nested_attributes_for :estimateprocedures
+  accepts_nested_attributes_for :estimateprocedures, :reject_if => lambda { |a| a[:procedure_id].blank? }, :allow_destroy => true
+
+  attr_accessor :patient_name
+
+  def patient_name
+    Patient.find(self.patient_id).name unless self.patient_id.nil?
+  end
 
   def date_str
     self.date.to_s
