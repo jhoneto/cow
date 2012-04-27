@@ -25,8 +25,10 @@ Cow::Application.routes.draw do
     get :autocomplete_patient_name, :on => :collection
     get :autocomplete_procedure_name, :on => :collection
   end   
+  resources :financial_accounts
   resources :patients
   resources :procedures
+  resources :payments
   resources :schedules do
     member do
       put 'confirm'

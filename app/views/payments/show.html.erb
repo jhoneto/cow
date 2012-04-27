@@ -1,0 +1,50 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", payments_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_payment_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", payment_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.account_id", :default =>"Account") %>:</b>
+      <%= @payment.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.name", :default =>"Name") %>:</b>
+      <%= @payment.name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.payment_type", :default =>"Payment type") %>:</b>
+      <%= @payment.payment_type %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.inactive", :default =>"Inactive") %>:</b>
+      <%= @payment.inactive %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.max_quota", :default =>"Max quota") %>:</b>
+      <%= @payment.max_quota %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.tax", :default =>"Tax") %>:</b>
+      <%= @payment.tax %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.payment.discount_card", :default =>"Discount card") %>:</b>
+      <%= @payment.discount_card %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_payment_path(@payment), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), payment_path(@payment), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+

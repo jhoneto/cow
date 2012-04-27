@@ -1,0 +1,35 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", financial_accounts_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_financial_account_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", financial_account_path %></li>
+</ul>    
+
+
+<p>
+  <b><%= t("activerecord.attributes.financial_account.name", :default =>"Name") %>:</b>
+  <%= @financial_account.name %>
+</p>
+
+<p>
+  <b><%= t("activerecord.attributes.financial_account.type", :default =>"Type") %>:</b>
+  <%= @financial_account.account_type %>
+</p>
+
+<p>
+  <b><%= t("activerecord.attributes.financial_account.account_id", :default =>"Account") %>:</b>
+  <%= @financial_account.account_id %>
+</p>
+
+<p>
+  <b><%= t("activerecord.attributes.financial_account.inactive", :default =>"Inactive") %>:</b>
+  <%= @financial_account.inactive %>
+</p>
+
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_financial_account_path(@financial_account), :class => "btn large primary" %>
+  <%= link_to t("bootstrap-rails.delete", :default => "Delete"), financial_account_path(@financial_account), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+
