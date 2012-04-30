@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427175857) do
+ActiveRecord::Schema.define(:version => 20120430175435) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -37,6 +37,29 @@ ActiveRecord::Schema.define(:version => 20120427175857) do
     t.string   "cel_phone",  :limit => 30,  :null => false
     t.string   "work_phone", :limit => 30
     t.text     "obs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entries", :force => true do |t|
+    t.integer  "financial_account_id",                                                   :null => false
+    t.date     "date",                                                                   :null => false
+    t.decimal  "value",                :precision => 18, :scale => 2,                    :null => false
+    t.integer  "entry_type",                                                             :null => false
+    t.boolean  "cancel",                                              :default => false, :null => false
+    t.integer  "patient_id"
+    t.integer  "estimate_id"
+    t.string   "description"
+    t.integer  "payment_id",                                                             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "estimate_payments", :force => true do |t|
+    t.integer  "estimate_id",                                 :null => false
+    t.integer  "payment_type",                                :null => false
+    t.decimal  "value",        :precision => 18, :scale => 2, :null => false
+    t.integer  "quotes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -171,6 +194,11 @@ ActiveRecord::Schema.define(:version => 20120427175857) do
   add_foreign_key "dentist_specialties", "specialties", :name => "dentist_specialties_specialty_id_fk"
 
   add_foreign_key "dentists", "accounts", :name => "dentists_account_id_fk"
+
+  add_foreign_key "entries", "financial_accounts", :name => "entries_financial_account_id_fk"
+  add_foreign_key "entries", "payments", :name => "entries_payment_id_fk"
+
+  add_foreign_key "estimate_payments", "estimates", :name => "estimate_payments_estimate_id_fk"
 
   add_foreign_key "estimate_procedures", "estimates", :name => "estimate_procedures_estimate_id_fk"
   add_foreign_key "estimate_procedures", "procedures", :name => "estimate_procedures_procedure_id_fk"
