@@ -12,7 +12,11 @@ Cow::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :home
+  resources :home do
+    collection do
+      get 'print'
+    end
+  end
   resources :dentists do
     member do
       post   'add_specialty'
