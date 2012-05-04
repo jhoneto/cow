@@ -1,0 +1,65 @@
+<style type="text/css">
+  li {
+    list-style:none;
+  }
+
+  ul, ol {
+  	margin: 0;
+  }
+</style>
+
+<%= f.inputs do %>
+    <%= f.hidden_field :account_id, :value => current_user.account_id%>  
+    <div class="row">
+      <div class="span2">
+      	<label>Data</label>
+        <%= f.input :date_str, :input_html => {:class => 'span2 datepicker'} , :label => false%>
+      </div>
+    </div> 
+    <div class="row">
+      <div class="span3">
+      	<label>Dentista</label>
+        <%= f.input :dentist, :input_html => {:class => 'span3'}, :label => false%>
+      </div>
+      <div class="span6">
+      	<label>Paciente</label>
+      	<%= f.autocomplete_field :patient_name, autocomplete_patient_name_estimates_path, :id_element => '#treatment_patient_id', :class => 'span6'%>
+      	<%= f.hidden_field :patient_id%>
+      </div>
+    </div>    
+ 
+<% end -%>
+<br>
+<h5> Procedimentos </h5>
+<%= f.fields_for :treatmentitems do |item_form| %>
+  <div class="form-vertical">
+      <div class="row">
+      	<div class="span1">
+          <label>Dente</label>
+          <%= item_form.number_field :tooth, :class => 'span1'%>
+        </div>
+
+        <div class="span6">
+          <label>Procedimento</label>
+          <%= item_form.autocomplete_field :procedure_name, autocomplete_procedure_name_treatments_path, :update_elements => {:id => form_tag_id(item_form.object_name, :procedure_id)}, :class => 'span6'%>
+          <%= item_form.hidden_field :procedure_id%>
+        </div>
+        <div class="span1">
+          <label>&nbsp;</label>
+           <%= item_form.link_to_remove("X", :class => 'btn btn-danger') %>
+        </div>
+       
+      </div>
+      <div class="row">
+      	<div class="span7">
+          <label>Observação</label>
+          <%= item_form.text_field :obs, :class => 'span7'%>
+        </div>
+      </div>
+    </div>
+<% end %>
+<p><%= f.link_to_add "+", :treatmentitems, :class => 'btn btn-success' %></p>
+<br>
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), treatments_path, :class => "btn" %>
+</div>

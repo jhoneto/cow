@@ -1,7 +1,7 @@
 class EstimatesController < CowController
 	inherit_resources
 
-	autocomplete :patient, :name, :extra_data => [:id]
+	autocomplete :patient, :name, :extra_data => [:id], :full => true
 	autocomplete :procedure, :name, :extra_data => [:id, :price], :full => true
 
 	def index

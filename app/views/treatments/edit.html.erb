@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", treatments_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_treatment_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_treatment_path %></li>
+</ul>
+<h2 class="title"><%= t("bootstrap-rails.edit", :default => "Edit") %> <%= t("activerecord.models.treatment") %></h2>                            
+
+<%= semantic_nested_form_for @treatment , :html => { :class => "form-vertical"} do |f| -%>
+<%= f.semantic_errors %>    
+  <%= render :partial => "form", :locals => {:f => f} %>
+<% end -%>                        
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%> 
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430175435) do
+ActiveRecord::Schema.define(:version => 20120504124928) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -168,6 +168,26 @@ ActiveRecord::Schema.define(:version => 20120430175435) do
     t.datetime "updated_at"
   end
 
+  create_table "treatment_items", :force => true do |t|
+    t.integer  "treatment_id", :null => false
+    t.integer  "tooth",        :null => false
+    t.integer  "procedure_id", :null => false
+    t.string   "obs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "treatments", :force => true do |t|
+    t.integer  "account_id",  :null => false
+    t.integer  "dentist_id",  :null => false
+    t.integer  "patient_id",  :null => false
+    t.date     "date",        :null => false
+    t.integer  "schedule_id"
+    t.integer  "estimate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_roles", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.integer  "role",       :null => false
@@ -218,6 +238,12 @@ ActiveRecord::Schema.define(:version => 20120430175435) do
   add_foreign_key "specialties", "accounts", :name => "specialties_account_id_fk"
 
   add_foreign_key "timetables", "dentists", :name => "timetables_dentist_id_fk"
+
+  add_foreign_key "treatments", "accounts", :name => "treatments_account_id_fk"
+  add_foreign_key "treatments", "dentists", :name => "treatments_dentist_id_fk"
+  add_foreign_key "treatments", "estimates", :name => "treatments_estimate_id_fk"
+  add_foreign_key "treatments", "patients", :name => "treatments_patient_id_fk"
+  add_foreign_key "treatments", "schedules", :name => "treatments_schedule_id_fk"
 
   add_foreign_key "user_roles", "users", :name => "user_roles_user_id_fk"
 

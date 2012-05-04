@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", treatments_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_treatment_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", treatment_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.account_id", :default =>"Account") %>:</b>
+      <%= @treatment.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.dentist_id", :default =>"Dentist") %>:</b>
+      <%= @treatment.dentist_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.patient_id", :default =>"Patient") %>:</b>
+      <%= @treatment.patient_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.date", :default =>"Date") %>:</b>
+      <%= @treatment.date %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.schedule_id", :default =>"Schedule") %>:</b>
+      <%= @treatment.schedule_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.treatment.estimate_id", :default =>"Estimate") %>:</b>
+      <%= @treatment.estimate_id %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_treatment_path(@treatment), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), treatment_path(@treatment), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+
