@@ -29,4 +29,6 @@ Cow::Application.configure do
   config.assets.debug = true
 
   config.time_zone = 'Brasilia'
+
+  Paperclip.options[:command_path] = '/usr/lib/ImageMagick-6.6.0'
 end

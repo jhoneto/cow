@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504124928) do
+ActiveRecord::Schema.define(:version => 20120504170855) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -127,13 +127,17 @@ ActiveRecord::Schema.define(:version => 20120504124928) do
   end
 
   create_table "procedures", :force => true do |t|
-    t.integer  "account_id",                                                                :null => false
-    t.string   "tuss",       :limit => 20
-    t.string   "name",                                                                      :null => false
-    t.boolean  "active",                                                  :default => true, :null => false
+    t.integer  "account_id",                                                                        :null => false
+    t.string   "tuss",               :limit => 20
+    t.string   "name",                                                                              :null => false
+    t.boolean  "active",                                                          :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "price",                    :precision => 18, :scale => 2
+    t.decimal  "price",                            :precision => 18, :scale => 2
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "schedules", :force => true do |t|

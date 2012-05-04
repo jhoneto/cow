@@ -18,6 +18,7 @@ gem "will_paginate", "~> 3.0.3"
 gem "nested_form", :git => "git://github.com/ryanb/nested_form.git"
 gem 'rails3-jquery-autocomplete'
 gem 'odf-report'
+gem "paperclip", "~> 3.0.2"
 
 
 group :development do

@@ -2,6 +2,8 @@ require 'util'
 
 class Procedure < CowModel 
   include ConvertMoney
+
+  has_attached_file :image, :styles => { :thumb => "135x36>" }
   
   def price_br
     v = read_attribute(:price)
