@@ -5,7 +5,9 @@ class Estimate < CowModel
   
   belongs_to :patient
   has_many :estimateprocedures , :class_name => "EstimateProcedure"
+  has_many :estimatepayments , :class_name => "EstimatePayment"
   accepts_nested_attributes_for :estimateprocedures, :reject_if => lambda { |a| a[:procedure_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :estimatepayments, :reject_if => lambda { |a| a[:payment_id].blank? }, :allow_destroy => true
 
   attr_accessor :patient_name
 

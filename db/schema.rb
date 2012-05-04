@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425174712) do
+ActiveRecord::Schema.define(:version => 20120430175435) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -41,6 +41,29 @@ ActiveRecord::Schema.define(:version => 20120425174712) do
     t.datetime "updated_at"
   end
 
+  create_table "entries", :force => true do |t|
+    t.integer  "financial_account_id",                                                   :null => false
+    t.date     "date",                                                                   :null => false
+    t.decimal  "value",                :precision => 18, :scale => 2,                    :null => false
+    t.integer  "entry_type",                                                             :null => false
+    t.boolean  "cancel",                                              :default => false, :null => false
+    t.integer  "patient_id"
+    t.integer  "estimate_id"
+    t.string   "description"
+    t.integer  "payment_id",                                                             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "estimate_payments", :force => true do |t|
+    t.integer  "estimate_id",                                 :null => false
+    t.integer  "payment_type",                                :null => false
+    t.decimal  "value",        :precision => 18, :scale => 2, :null => false
+    t.integer  "quotes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "estimate_procedures", :force => true do |t|
     t.integer  "estimate_id",                                 :null => false
     t.integer  "procedure_id",                                :null => false
@@ -63,6 +86,15 @@ ActiveRecord::Schema.define(:version => 20120425174712) do
     t.integer  "account_id",                                                    :null => false
   end
 
+  create_table "financial_accounts", :force => true do |t|
+    t.string   "name",                            :null => false
+    t.integer  "account_id",                      :null => false
+    t.boolean  "inactive",     :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "account_type",                    :null => false
+  end
+
   create_table "patients", :force => true do |t|
     t.integer  "account_id",                    :null => false
     t.string   "name",           :limit => 200, :null => false
@@ -78,6 +110,18 @@ ActiveRecord::Schema.define(:version => 20120425174712) do
     t.string   "home_phone",     :limit => 30
     t.string   "cel_phone",      :limit => 30,  :null => false
     t.string   "work_phone",     :limit => 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "account_id",                                                      :null => false
+    t.string   "name",                                                            :null => false
+    t.integer  "payment_type",                                                    :null => false
+    t.boolean  "inactive",                                     :default => false, :null => false
+    t.integer  "max_quota"
+    t.decimal  "tax",           :precision => 18, :scale => 2
+    t.decimal  "discount_card", :precision => 18, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,10 +195,17 @@ ActiveRecord::Schema.define(:version => 20120425174712) do
 
   add_foreign_key "dentists", "accounts", :name => "dentists_account_id_fk"
 
+  add_foreign_key "entries", "financial_accounts", :name => "entries_financial_account_id_fk"
+  add_foreign_key "entries", "payments", :name => "entries_payment_id_fk"
+
+  add_foreign_key "estimate_payments", "estimates", :name => "estimate_payments_estimate_id_fk"
+
   add_foreign_key "estimate_procedures", "estimates", :name => "estimate_procedures_estimate_id_fk"
   add_foreign_key "estimate_procedures", "procedures", :name => "estimate_procedures_procedure_id_fk"
 
   add_foreign_key "estimates", "accounts", :name => "estimates_account_id_fk"
+
+  add_foreign_key "financial_accounts", "accounts", :name => "financial_accounts_account_id_fk"
 
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 

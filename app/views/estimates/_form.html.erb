@@ -66,6 +66,29 @@
         <%= f.text_field :final_value, :class => 'span2'%>
       </div>
     </div>
+    
+    <h5>Forma de pagemento</h5>
+    <%= f.fields_for :estimatepayments do |payment_form| %>
+
+    <div class="form-vertical">
+      <div class="row">
+        <div class="span6">
+          <label>Forma de pagamento</label>
+          <%= payment_form.select :payment_type, :collection => options_for_select(Payment::PAYMENT_TYPE_LIST)%>
+        </div>
+
+        <div class="span1">
+          <label>Valor</label>
+          <%= payment_form.number_field :value, :class => 'span1' %>
+        </div>
+        <div class="span1">
+          <label>Parcelas</label>
+          <%= payment_form.number_field :quotes, :class => 'span1' %>
+        </div>
+      </div>
+    </div>
+    <% end -%>
+
     <h5>Odontograma<h5>
     <table>
       <tr>

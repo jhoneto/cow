@@ -1,0 +1,18 @@
+<%= f.inputs do %>
+   
+    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+ 
+    <%= f.input :name%>
+ 
+    <%= f.input :payment_type, :as => :select, :collection => options_for_select(Payment::PAYMENT_TYPE_LIST)%>
+ 
+    <%= f.input :max_quota%>
+ 
+    <%= f.input :tax%>
+ 
+    <%= f.input :discount_card%>
+    
+<% end -%>
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), payments_path, :class => "btn" %>
+</div>

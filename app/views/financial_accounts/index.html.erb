@@ -1,0 +1,34 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", financial_accounts_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_financial_account_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> <%= t("activerecord.models.financial_accounts") %> </h2>
+<table class="table table-striped table-bordered">
+  <thead>             
+    <th>#</th>   
+    <th><%= t("activerecord.attributes.financial_account.name", :default => "Name") %></th>
+    <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
+    <th class="last">&nbsp;</th>
+  </thead>                         
+  <tbody>
+   <% @financial_accounts.each do |financial_account| -%>
+   <tr>
+    <td><%= financial_account.id %></td>
+    <td><%= link_to financial_account.name, financial_account_path(financial_account) %></td>
+    <td><%= financial_account.created_at %></td>
+    <td>
+      <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", financial_account_path(financial_account) %> |
+      <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_financial_account_path(financial_account) %> |
+      <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", financial_account_path(financial_account), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+    </td>
+  </tr>
+  <% end -%>
+</tbody>
+</table>
+
+
+<%= will_paginate @financial_accounts  %>
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

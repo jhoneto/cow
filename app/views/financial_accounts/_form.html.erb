@@ -1,0 +1,12 @@
+<%= f.inputs do %>
+   
+    <%= f.input :name%>
+ 
+    <%= f.input :account_type, :as => :select, :collection => options_for_select(FinancialAccount::ACCOUNT_TYPE_LIST)%>
+ 
+    <%= f.input :account_id, :as => :hidden, :value => current_user.account_id%>
+   
+<% end -%>
+<div class="actions">
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), financial_accounts_path, :class => "btn" %>
+</div>
