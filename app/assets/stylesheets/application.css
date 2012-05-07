@@ -9,8 +9,8 @@
 
 /*
  *= require jquery.ui.all
+ *= require jquery.contextMenu
  */
 *= require formtastic-bootstrap 
 *= require formtastic
 *= require my_formtastic_changes
-

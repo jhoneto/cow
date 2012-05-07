@@ -1,0 +1,34 @@
+<ul class="nav nav-tabs"> 
+	<li class="active"><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", groups_path  %></li>  
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_group_path %></li>
+</ul>   
+<h2 class="title"><%= t("bootstrap-rails.all", :default => "All")  %> <%= t("activerecord.models.groups") %> </h2>
+<table class="table table-striped table-bordered">
+    <thead>             
+      <th>#</th>   
+            <th><%= t("activerecord.attributes.group.name", :default => "Name") %></th>
+            <th><%= t("bootstrap-rails.name", :default => "Name")  %></th>
+      <th class="last">&nbsp;</th>
+    </thead>                         
+    <tbody>
+      	<% @groups.each do |group| -%>
+        <tr>
+          <td><%= group.id %></td>
+                    <td><%= link_to group.name, group_path(group) %></td>
+                    <td><%= group.name %></td>
+          <td>
+            <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", group_path(group) %> |
+            <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_group_path(group) %> |
+            <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", group_path(group), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>
+        <% end -%>
+    </tbody>
+</table>
+             
+
+<%= will_paginate @groups  %>
+
+
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504170855) do
+ActiveRecord::Schema.define(:version => 20120507174353) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name",       :limit => 100
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(:version => 20120504170855) do
     t.integer  "account_type",                    :null => false
   end
 
+  create_table "groups", :force => true do |t|
+    t.string   "name",               :null => false
+    t.integer  "account_id",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "patients", :force => true do |t|
     t.integer  "account_id",                    :null => false
     t.string   "name",           :limit => 200, :null => false
@@ -138,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20120504170855) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "group_id",                                                                          :null => false
   end
 
   create_table "schedules", :force => true do |t|
@@ -231,9 +243,14 @@ ActiveRecord::Schema.define(:version => 20120504170855) do
 
   add_foreign_key "financial_accounts", "accounts", :name => "financial_accounts_account_id_fk"
 
+  add_foreign_key "groups", "accounts", :name => "groups_account_id_fk"
+
   add_foreign_key "patients", "accounts", :name => "patients_account_id_fk"
 
+  add_foreign_key "payments", "accounts", :name => "payments_account_id_fk"
+
   add_foreign_key "procedures", "accounts", :name => "procedures_account_id_fk"
+  add_foreign_key "procedures", "groups", :name => "procedures_group_id_fk"
 
   add_foreign_key "schedules", "accounts", :name => "schedules_account_id_fk"
   add_foreign_key "schedules", "dentists", :name => "schedules_dentist_id_fk"

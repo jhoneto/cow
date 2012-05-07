@@ -1,141 +1,172 @@
 <script>
-  function total(qtd_id, price_id, total_id){
-    var qtd = $(qtd_id).val();
-    var price = $(price_id).val();
-    var total = qtd * price
-    $(total_id).val(total);
-  }
+function total(qtd_id, price_id, total_id){
+  var qtd = $(qtd_id).val();
+  var price = $(price_id).val();
+  var total = qtd * price
+  $(total_id).val(total);
+}
+$(function(){
+  var groups = eval($('#dados').html());
+  
+  
+  $.contextMenu({
+    // define which elements trigger this menu
+    selector: ".odontogram-menu",
+    // define the elements of the menu
+    
+    items: {
+        1: {name: "Exodontia", callback: function(key, opt){ add_action(opt.$trigger.attr("id"), key); }}
+    }
+    // there's more, have a look at the demos and docs...
+  });
+ function add_action(id, key) {
+  alert(key);
+  var v = $('#action'+id).html();
+  v = v + '<div style="position: absolute; top: 1px; left: 1px">' + "<%= escape_javascript( image_tag 'dentes/exodontia.png', :size => '36x135')%>" +'</div>'
+  $('#action'+id).html(v);
+ }
+});
 </script>
 
-    <%= f.hidden_field :account_id, :value => current_user.account_id%>
-    <div class="row">
-      <div class="span2">
-        <label>Data</label>
-        <%= f.text_field :date_str, :class => 'datepicker span2'%>
-      </div>
-      <div class="span6">
-        <label>Paciente</label>
-        <%= f.autocomplete_field :patient_name, autocomplete_patient_name_estimates_path, :id_element => '#estimate_patient_id', :class => 'span6'%>
-        <%= f.hidden_field :patient_id%>
-      </div>      
-    </div>
-    <h5>Procedimentos</h5>
-    <%= f.fields_for :estimateprocedures do |procedure_form| %>
+<%= f.hidden_field :account_id, :value => current_user.account_id%>
+<div class="row">
+  <div class="span2">
+    <label>Data</label>
+    <%= f.text_field :date_str, :class => 'datepicker span2'%>
+  </div>
+  <div class="span6">
+    <label>Paciente</label>
+    <%= f.autocomplete_field :patient_name, autocomplete_patient_name_estimates_path, :id_element => '#estimate_patient_id', :class => 'span6'%>
+    <%= f.hidden_field :patient_id%>
+  </div>      
+</div>
+<h5>Procedimentos</h5>
+<%= f.fields_for :estimateprocedures do |procedure_form| %>
 
-    <div class="form-vertical">
-      <div class="row">
-        <div class="span6">
-          <label>Procedimento</label>
-          <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value)}, :class => 'span6'%>
-          <%= procedure_form.hidden_field :procedure_id%>
-        </div>
+<div class="form-vertical">
+  <div class="row">
+    <div class="span6">
+      <label>Procedimento</label>
+      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value)}, :class => 'span6'%>
+      <%= procedure_form.hidden_field :procedure_id%>
+    </div>
 
-        <div class="span1">
-          <label>Quantidade</label>
-          <%= procedure_form.number_field :amount, :class => 'span1', :onBlur => "total('#{form_tag_id(procedure_form.object_name, :amount)}', '#{form_tag_id(procedure_form.object_name, :value)}', '#{form_tag_id(procedure_form.object_name, :item_total)}')" %>
-        </div>
-        <div class="span1">
-          <label>Valor</label>
-          <%= procedure_form.number_field :value, :class => 'span1' %>
-        </div>
-        <div class="span1">
-          <label>Total</label>
-          <%= procedure_form.number_field :item_total, :class => 'span1', :readonly => true %>
-        </div>
-        <div class="span1">
-          <label>&nbsp;</label>
-           <%= procedure_form.link_to_remove("X", :class => 'btn btn-danger') %>
-        </div>
-       
-      </div>
+    <div class="span1">
+      <label>Quantidade</label>
+      <%= procedure_form.number_field :amount, :class => 'span1', :onBlur => "total('#{form_tag_id(procedure_form.object_name, :amount)}', '#{form_tag_id(procedure_form.object_name, :value)}', '#{form_tag_id(procedure_form.object_name, :item_total)}')" %>
     </div>
-    <% end -%>
-    <p><%= f.link_to_add "+", :estimateprocedures, :class => 'btn btn-success' %></p>
-    <br>
-    
-    <h5>Forma de pagemento</h5>
-    <%= f.fields_for :estimatepayments do |payment_form| %>
+    <div class="span1">
+      <label>Valor</label>
+      <%= procedure_form.number_field :value, :class => 'span1' %>
+    </div>
+    <div class="span1">
+      <label>Total</label>
+      <%= procedure_form.number_field :item_total, :class => 'span1', :readonly => true %>
+    </div>
+    <div class="span1">
+      <label>&nbsp;</label>
+      <%= procedure_form.link_to_remove("X", :class => 'btn btn-danger') %>
+    </div>
 
-    <div class="form-vertical">
-      <div class="row">
-        <div class="span6">
-          <label>Forma de pagamento</label>
-          <%= payment_form.select :payment_type, options_for_select(Payment::PAYMENT_TYPE_LIST), {:include_blank => true}, {:class => 'span6'}%>
-        </div>
+  </div>
+</div>
+<% end -%>
+<p><%= f.link_to_add "+", :estimateprocedures, :class => 'btn btn-success' %></p>
+<br>
 
-        <div class="span1">
-          <label>Valor</label>
-          <%= payment_form.number_field :value, :class => 'span1' %>
-        </div>
-        <div class="span1">
-          <label>Parcelas</label>
-          <%= payment_form.number_field :quotes, :class => 'span1' %>
-        </div>
-        <div class="span1">
-          <label>&nbsp;</label>
-          <%= payment_form.link_to_remove("X", :class => 'btn btn-danger') %>
-        </div>
-      </div>
+<h5>Forma de pagemento</h5>
+<%= f.fields_for :estimatepayments do |payment_form| %>
+
+<div class="form-vertical">
+  <div class="row">
+    <div class="span6">
+      <label>Forma de pagamento</label>
+      <%= payment_form.select :payment_type, options_for_select(Payment::PAYMENT_TYPE_LIST), {:include_blank => true}, {:class => 'span6'}%>
     </div>
-    <% end -%>
-    <p><%= f.link_to_add "+", :estimatepayments, :class => 'btn btn-success' %></p>
-    <br>
-    <h5>Totais</h5>
-    <div class="row">
-      <div class="span2">
-        <label>Total</label>
-        <%= f.text_field :total, :class => 'span2'%>
-      </div>
-      <div class="span2">
-        <label>Desconto</label>
-        <%= f.text_field :discount, :class => 'span2'%>
-      </div>
-      <div class="span2">
-        <label>Valor Final</label>
-        <%= f.text_field :final_value, :class => 'span2'%>
-      </div>
-      
+
+    <div class="span1">
+      <label>Valor</label>
+      <%= payment_form.number_field :value, :class => 'span1' %>
     </div>
-    <br>
-    <h5>Odontograma<h5>
-    <table>
-      <tr>
-        <td><a href="#"><%= image_tag 'dentes/18.png', :size => "36x135"%></a></td>
-        <td><%= image_tag 'dentes/17.png', :size => "36x135", :style=>"position: relative; top: 1px; left: 1px;"%></td>
-        <td><%= image_tag 'dentes/16.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/15.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/14.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/13.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/12.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/11.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/21.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/22.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/23.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/24.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/25.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/26.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/27.png', :size => "36x135"%></td>
-        <td><span style="position: relative; top: 1px; left: 1px;"> <%= image_tag 'dentes/28.png', :size => "36x135"%></span><span style="position: relative; top: 1px; left: -37px;"><%= image_tag 'dentes/exodontia.png', :size => "36x135"%></span></td>
-      </tr>
-      <tr>
-        <td><%= image_tag 'dentes/38.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/37.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/36.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/35.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/34.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/33.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/32.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/31.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/41.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/42.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/43.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/44.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/45.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/46.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/47.png', :size => "36x135"%></td>
-        <td><%= image_tag 'dentes/48.png', :size => "36x135"%></td>
-      </tr>
-    </table>
-    <div class="actions">
-      <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), estimates_path, :class => "btn" %>
+    <div class="span1">
+      <label>Parcelas</label>
+      <%= payment_form.number_field :quotes, :class => 'span1' %>
     </div>
+    <div class="span1">
+      <label>&nbsp;</label>
+      <%= payment_form.link_to_remove("X", :class => 'btn btn-danger') %>
+    </div>
+  </div>
+</div>
+<% end -%>
+<p><%= f.link_to_add "+", :estimatepayments, :class => 'btn btn-success' %></p>
+<br>
+<h5>Totais</h5>
+<div class="row">
+  <div class="span2">
+    <label>Total</label>
+    <%= f.text_field :total, :class => 'span2'%>
+  </div>
+  <div class="span2">
+    <label>Desconto</label>
+    <%= f.text_field :discount, :class => 'span2'%>
+  </div>
+  <div class="span2">
+    <label>Valor Final</label>
+    <%= f.text_field :final_value, :class => 'span2'%>
+  </div>
+
+</div>
+<br>
+<h5>Odontograma<h5>
+  <table>
+    <tr>
+      <td id="18" class="odontogram-menu">
+        <div style="position: relative; top: 1px; left: 1px;"> 
+          <%= image_tag 'dentes/18.png', :size => "36x135"%>
+          <div id="action18">
+          </div>
+        </div>
+      </td>
+      <td><%= image_tag 'dentes/17.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/16.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/15.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/14.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/13.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/12.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/11.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/21.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/22.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/23.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/24.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/25.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/26.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/27.png', :size => "36x135"%></td>
+      <td id="28" class="odontogram-menu"><span style="position: relative; top: 1px; left: 1px;"> <%= image_tag 'dentes/28.png', :size => "36x135"%></span></td>
+    </tr>
+    <tr>
+      <td><%= image_tag 'dentes/38.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/37.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/36.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/35.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/34.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/33.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/32.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/31.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/41.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/42.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/43.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/44.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/45.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/46.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/47.png', :size => "36x135"%></td>
+      <td><%= image_tag 'dentes/48.png', :size => "36x135"%></td>
+    </tr>
+  </table>
+  <div class="actions">
+    <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), estimates_path, :class => "btn" %>
+  </div>
+
+  <div id="dados">
+    <%= Group.all.to_json %>
+  </div>

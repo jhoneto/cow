@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs"> 
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", groups_path  %></li> 
+	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_group_path %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", group_path %></li>
+</ul>    
+
+
+    <p>
+      <b><%= t("activerecord.attributes.group.name", :default =>"Name") %>:</b>
+      <%= @group.name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.group.account_id", :default =>"Account") %>:</b>
+      <%= @group.account_id %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.group.image_file_name", :default =>"Image file name") %>:</b>
+      <%= @group.image_file_name %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.group.image_content_type", :default =>"Image content type") %>:</b>
+      <%= @group.image_content_type %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.group.image_file_size", :default =>"Image file size") %>:</b>
+      <%= @group.image_file_size %>
+    </p>
+
+    <p>
+      <b><%= t("activerecord.attributes.group.image_updated_at", :default =>"Image updated at") %>:</b>
+      <%= @group.image_updated_at %>
+    </p>
+                  
+
+<div class="actions">
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_group_path(@group), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), group_path(@group), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+</div>      
+    
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+
