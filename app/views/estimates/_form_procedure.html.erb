@@ -1,0 +1,32 @@
+<h5>Procedimentos</h5>
+<%= f.fields_for :estimateprocedures do |procedure_form| %>
+
+<div class="form-vertical">
+  <div class="row">
+    <div class="span6">
+      <label>Procedimento</label>
+      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value)}, :class => 'span6'%>
+      <%= procedure_form.hidden_field :procedure_id%>
+    </div>
+
+    <div class="span1">
+      <label>Quantidade</label>
+      <%= procedure_form.number_field :amount, :class => 'span1', :onBlur => "total('#{form_tag_id(procedure_form.object_name, :amount)}', '#{form_tag_id(procedure_form.object_name, :value)}', '#{form_tag_id(procedure_form.object_name, :item_total)}')" %>
+    </div>
+    <div class="span1">
+      <label>Valor</label>
+      <%= procedure_form.number_field :value, :class => 'span1', :readonly => true %>
+    </div>
+    <div class="span1">
+      <label>Total</label>
+      <%= procedure_form.number_field :item_total, :class => 'span1', :readonly => true %>
+    </div>
+    <div class="span1">
+      <label>&nbsp;</label>
+      <%= procedure_form.link_to_remove("X", :class => 'btn btn-danger') %>
+    </div>
+
+  </div>
+</div>
+<% end -%>
+<p><%= f.link_to_add "+", :estimateprocedures, :class => 'btn btn-success' %></p>
