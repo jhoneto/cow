@@ -1,0 +1,27 @@
+<h5>Forma de pagemento</h5>
+<%= f.fields_for :estimatepayments do |payment_form| %>
+
+<div class="form-vertical">
+  <div class="row">
+    <div class="span6">
+      <label>Forma de pagamento</label>
+      <%= payment_form.select :payment_type, options_for_select(Payment::PAYMENT_TYPE_LIST), {:include_blank => true}, {:class => 'span6'}%>
+    </div>
+
+    <div class="span1">
+      <label>Valor</label>
+      <%= payment_form.number_field :value, :class => 'span1' %>
+    </div>
+    <div class="span1">
+      <label>Parcelas</label>
+      <%= payment_form.number_field :quotes, :class => 'span1' %>
+    </div>
+    <div class="span1">
+      <label>&nbsp;</label>
+      <%= payment_form.link_to_remove("X", :class => 'btn btn-danger') %>
+    </div>
+  </div>
+</div>
+<% end -%>
+<p><%= f.link_to_add "+", :estimatepayments, :class => 'btn btn-success' %></p>
+<br>

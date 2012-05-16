@@ -1,13 +1,4 @@
-<script>
-function total(qtd_id, price_id, total_id){
-  var qtd = $(qtd_id).val();
-  var price = $(price_id).val();
-  var total = qtd * price;
-  $(total_id).removeAttr('readonly');
-  $(total_id).val(total);
-  $(total_id).attr('readonly', true);
-}
-</script>
+
 
 <%= f.hidden_field :account_id, :value => current_user.account_id%>
 <div class="row">
@@ -23,50 +14,27 @@ function total(qtd_id, price_id, total_id){
 </div>
 <br>
 <%= render :partial => "form_procedure", :locals => {:f => f} %>
-<h5>Forma de pagemento</h5>
-<%= f.fields_for :estimatepayments do |payment_form| %>
 
-<div class="form-vertical">
-  <div class="row">
-    <div class="span6">
-      <label>Forma de pagamento</label>
-      <%= payment_form.select :payment_type, options_for_select(Payment::PAYMENT_TYPE_LIST), {:include_blank => true}, {:class => 'span6'}%>
-    </div>
-
-    <div class="span1">
-      <label>Valor</label>
-      <%= payment_form.number_field :value, :class => 'span1' %>
-    </div>
-    <div class="span1">
-      <label>Parcelas</label>
-      <%= payment_form.number_field :quotes, :class => 'span1' %>
-    </div>
-    <div class="span1">
-      <label>&nbsp;</label>
-      <%= payment_form.link_to_remove("X", :class => 'btn btn-danger') %>
-    </div>
-  </div>
-</div>
-<% end -%>
-<p><%= f.link_to_add "+", :estimatepayments, :class => 'btn btn-success' %></p>
-<br>
 <h5>Totais</h5>
 <div class="row">
   <div class="span2">
     <label>Total</label>
-    <%= f.text_field :total, :class => 'span2'%>
+    <%= f.text_field :total, :class => 'span2 valor_monetario', :readonly => true%>
   </div>
   <div class="span2">
     <label>Desconto</label>
-    <%= f.text_field :discount, :class => 'span2'%>
+    <%= f.text_field :discount, :class => 'span2 valor_monetario', :onchange => "totalizar()"%>
   </div>
   <div class="span2">
     <label>Valor Final</label>
-    <%= f.text_field :final_value, :class => 'span2'%>
+    <%= f.text_field :final_value, :class => 'span2 valor_monetario', :readonly => true%>
   </div>
 
 </div>
 <br>
+
+<%= render :partial => "form_payment", :locals => {:f => f} %>
+
 <h5>Odontograma<h5>
   <table>
     <tr>
@@ -114,8 +82,4 @@ function total(qtd_id, price_id, total_id){
   </table>
   <div class="actions">
     <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), estimates_path, :class => "btn" %>
-  </div>
-
-  <div id="dados">
-    <%= Group.all.to_json %>
   </div>

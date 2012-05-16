@@ -13,6 +13,35 @@
 //= require jquery.contextMenu
 //= require jquery.ui.position
 
+function convert_to_money(value){
+	var v = value;
+	v = v.replace(",", "");
+	v = v.replace(".", ",");
+	decimal  = v.substring(v.indexOf(",")+1);
+	if (decimal.length < 2) {
+		v = v + '0';
+	}                  
+	if (decimal.length == v.length) {
+		v = v + '00';
+	}
+	return v;
+	
+}
+
+function convert_to_float(value){
+	value = value.replace(".", "");
+	value = value.replace(",", ".");
+	return parseFloat(value);
+}
+
+function multiply_money(value1, value2){
+	value1 = value1.replace(".", "");
+	value1 = value1.replace(",",".");
+	value2 = value2.replace(".", "");
+	value2 = value2.replace(",",".");
+	return value1*value2;
+}
+
 
 $(function(){
 
@@ -27,4 +56,11 @@ $(function(){
 		nextText: 'Próximo',
 		prevText: 'Anterior'
 	});
+	
+	$(".valor_monetario").maskMoney({
+         thousands: '.',
+	     decimal: ',',
+	     precision: 2
+     });   
+    $(".valor_monetario").msk();
 });

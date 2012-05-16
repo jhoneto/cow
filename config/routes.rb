@@ -34,6 +34,11 @@ Cow::Application.routes.draw do
   resources :patients
   resources :procedures
   resources :payments
+  resources :reports do
+    collection do
+      get 'estimate'
+    end
+  end
   resources :schedules do
     member do
       put 'confirm'

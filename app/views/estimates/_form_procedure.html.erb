@@ -1,3 +1,45 @@
+<script>
+$(function(){ 
+	$("form").live("nested:fieldRemoved", function(event) {
+		totalizar();		
+	});
+});
+
+
+function force_mask(id){
+	$(id).val(convert_to_money($(id).val()));
+	$(".valor_monetario").msk();
+}
+
+function totalizar(){
+	var total = parseFloat("0.00");
+	var desconto = convert_to_float($("#estimate_discount").val());
+	var valor_final = parseFloat("0.00");
+	$('.item_total').each(function(index) {
+		if ($(this).is(":visible")){
+			total = total + convert_to_float($(this).val());
+		}
+	});
+	valor_final = total - total*(desconto/100.00);
+	$("#estimate_total").val(convert_to_money(total.toString()));
+	$("#estimate_final_value").val(convert_to_money(valor_final.toString()));
+	$(".valor_monetario").msk();
+}
+function total(qtd_id, price_id, total_id){
+  var qtd = $(qtd_id).val();
+  var price = $(price_id).val();
+  var total = multiply_money(qtd,price); 
+  var total_str = convert_to_money(total.toString());
+  $(total_id).removeAttr('readonly');
+  $(total_id).val(total_str);  
+  $(total_id).attr('readonly', true);
+  $(".valor_monetario").msk();
+  totalizar();
+
+}
+</script>
+
+
 <h5>Procedimentos</h5>
 <%= f.fields_for :estimateprocedures do |procedure_form| %>
 
@@ -5,21 +47,21 @@
   <div class="row">
     <div class="span6">
       <label>Procedimento</label>
-      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value)}, :class => 'span6'%>
+      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value_br)}, :class => 'span6', :onblur => "force_mask('#{form_tag_id(procedure_form.object_name, :value_br)}')"%>
       <%= procedure_form.hidden_field :procedure_id%>
     </div>
 
     <div class="span1">
       <label>Quantidade</label>
-      <%= procedure_form.number_field :amount, :class => 'span1', :onBlur => "total('#{form_tag_id(procedure_form.object_name, :amount)}', '#{form_tag_id(procedure_form.object_name, :value)}', '#{form_tag_id(procedure_form.object_name, :item_total)}')" %>
+      <%= procedure_form.number_field :amount, :class => 'span1', :onBlur => "total('#{form_tag_id(procedure_form.object_name, :amount)}', '#{form_tag_id(procedure_form.object_name, :value_br)}', '#{form_tag_id(procedure_form.object_name, :item_total)}')" %>
     </div>
     <div class="span1">
       <label>Valor</label>
-      <%= procedure_form.number_field :value, :class => 'span1', :readonly => true %>
+      <%= procedure_form.text_field :value_br, :class => 'span1 valor_monetario', :readonly => true %>
     </div>
     <div class="span1">
       <label>Total</label>
-      <%= procedure_form.number_field :item_total, :class => 'span1', :readonly => true %>
+      <%= procedure_form.text_field :item_total, :class => 'span1 valor_monetario item_total', :readonly => true %>
     </div>
     <div class="span1">
       <label>&nbsp;</label>

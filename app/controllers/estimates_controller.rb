@@ -17,6 +17,6 @@ class EstimatesController < CowController
       @estimate  = Estimate.new
       5.times { @estimate.estimateprocedures.build }
       3.times { @estimate.estimatepayments.build }
-    end
+  end
 
 end
