@@ -1,4 +1,6 @@
-class Patient < CowModel         
+class Patient < CowModel
+  
+  has_many :treatments, :class_name => "Treatment", :foreign_key => "patient_id"
 
 	attr_accessor :date_of_birth_str
 

@@ -2,7 +2,7 @@ class EstimatesController < CowController
 	inherit_resources
 
 	autocomplete :patient, :name, :extra_data => [:id], :full => true
-	autocomplete :procedure, :name, :extra_data => [:id, :price], :full => true
+	
 
 	def index
 	  @estimates = Estimate.search(params, current_user.account_id).paginate(:page => params[:page])

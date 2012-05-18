@@ -23,7 +23,7 @@
       </div>
       <div class="span6">
       	<label>Paciente</label>
-      	<%= f.autocomplete_field :patient_name, autocomplete_patient_name_estimates_path, :id_element => '#treatment_patient_id', :class => 'span6'%>
+      	<%= f.autocomplete_field :patient_name, autocomplete_patient_name_patients_path, :value => @treatment.new_record? ? @patient_name : @treatment.patient_name, :id_element => '#treatment_patient_id', :class => 'span6'%>
       	<%= f.hidden_field :patient_id%>
       </div>
     </div>    
@@ -41,7 +41,7 @@
 
         <div class="span6">
           <label>Procedimento</label>
-          <%= item_form.autocomplete_field :procedure_name, autocomplete_procedure_name_treatments_path, :update_elements => {:id => form_tag_id(item_form.object_name, :procedure_id)}, :class => 'span6'%>
+          <%= item_form.autocomplete_field :procedure_name, autocomplete_procedure_name_procedures_path, :update_elements => {:id => form_tag_id(item_form.object_name, :procedure_id)}, :class => 'span6'%>
           <%= item_form.hidden_field :procedure_id%>
         </div>
         <div class="span1">
@@ -61,5 +61,5 @@
 <p><%= f.link_to_add "+", :treatmentitems, :class => 'btn btn-success' %></p>
 <br>
 <div class="actions">
-  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), treatments_path, :class => "btn" %>
+  <input type="submit" class="btn btn-primary" value="Salvar">&nbsp;<%= link_to t("bootstrap-rails.cancel", :default => "Cancel"), :back, :class => "btn" %>
 </div>

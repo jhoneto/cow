@@ -1,44 +1,47 @@
 <ul class="nav nav-tabs"> 
-	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", treatments_path  %></li> 
-	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_treatment_path %></li>  
-	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", treatment_path %></li>
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", patient_treatments_path(@patient)  %></li>
+	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", patient_treatment_path(@patient) %></li>
 </ul>    
+    <fieldset id="dados_gerais" class="">
+    	<legend>Dados Gerais</legend>
+        <br>
+    	<div class="row">
+	      <div class="span2">
+		    <strong><%= t("activerecord.attributes.treatment.date", :default =>"Date") %>: </strong><%=@treatment.date%>
+		  </div>
+		  <div class="span6">
+			<strong><%= t("activerecord.attributes.treatment.dentist_id", :default =>"Dentist") %>: </strong><%=@treatment.dentist.name%>
+		  </div>
+	    </div>
+    	
+    </fieldset>
 
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.account_id", :default =>"Account") %>:</b>
-      <%= @treatment.account_id %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.dentist_id", :default =>"Dentist") %>:</b>
-      <%= @treatment.dentist_id %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.patient_id", :default =>"Patient") %>:</b>
-      <%= @treatment.patient_id %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.date", :default =>"Date") %>:</b>
-      <%= @treatment.date %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.schedule_id", :default =>"Schedule") %>:</b>
-      <%= @treatment.schedule_id %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.treatment.estimate_id", :default =>"Estimate") %>:</b>
-      <%= @treatment.estimate_id %>
-    </p>
+    <fieldset id="procedimentos" class="">
+    	<legend>Procedimentos</legend> 
+        <br>
+    	<table class="table table-striped table-bordered">
+		  <thead>             
+		    <th>Dente</th>   
+		    <th>Procedimento</th>
+		    <th>Observação</th>
+		  </thead>                         
+		  <tbody>
+		   <% @treatment.treatmentitems.each do |item| -%>
+		   <tr>
+		    <td><%= item.tooth %></td>
+		    <td><%= item.procedure_name %></td>
+		    <td><%= item.obs %></td>
+		  </tr>
+		  <% end -%>
+		</tbody>
+		</table>
+    	
+    </fieldset>
                   
 
 <div class="actions">
-	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_treatment_path(@treatment), :class => "btn large primary" %>
-    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), treatment_path(@treatment), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_patient_treatment_path(@treatment, @patient), :class => "btn large primary" %>
+    <%= link_to t("bootstrap-rails.delete", :default => "Delete"), patient_treatment_path(@treatment, @patient), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
 </div>      
     
 <% content_for :sidebar, render(:partial => 'sidebar') -%>

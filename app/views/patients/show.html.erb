@@ -2,81 +2,77 @@
 	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", patients_path  %></li> 
 	<li><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_patient_path %></li>  
 	<li class="active"><%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", patient_path %></li>
-</ul>    
+</ul>
+    <fieldset id="dados_gerais" class="">
+    	<legend>Dados Gerais</legend>
+        <br>
+    	<div class="row">
+		  <div class="span6">
+			<strong><%= t("activerecord.attributes.patient.name", :default =>"Name") %>: </strong><%= @patient.name %>
+		  </div>
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.sex", :default =>"Sex") %>: </strong><%= @patient.sex %>
+		  </div>
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.date_of_birth", :default =>"Date of birth") %>: </strong><%= @patient.date_of_birth %>
+		  </div>
+		</div>
+    	
+    </fieldset>
 
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.account_id", :default =>"Account") %>:</b>
-      <%= @patient.account_id %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.name", :default =>"Name") %>:</b>
-      <%= @patient.name %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.rg", :default =>"Rg") %>:</b>
-      <%= @patient.rg %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.rg_orgao", :default =>"Rg orgao") %>:</b>
-      <%= @patient.rg_orgao %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.cpf", :default =>"Cpf") %>:</b>
-      <%= @patient.cpf %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.date_of_birth", :default =>"Date of birth") %>:</b>
-      <%= @patient.date_of_birth %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.sex", :default =>"Sex") %>:</b>
-      <%= @patient.sex %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.nationality", :default =>"Nationality") %>:</b>
-      <%= @patient.nationality %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.place_of_birth", :default =>"Place of birth") %>:</b>
-      <%= @patient.place_of_birth %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.marital_status", :default =>"Marital status") %>:</b>
-      <%= @patient.marital_status %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.occupation", :default =>"Occupation") %>:</b>
-      <%= @patient.occupation %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.home_phone", :default =>"Home phone") %>:</b>
-      <%= @patient.home_phone %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.cel_phone", :default =>"Cel phone") %>:</b>
-      <%= @patient.cel_phone %>
-    </p>
-
-    <p>
-      <b><%= t("activerecord.attributes.patient.work_phone", :default =>"Work phone") %>:</b>
-      <%= @patient.work_phone %>
-    </p>
-                  
-
+    <fieldset id="contato" class="">
+    	<legend>Contato</legend>
+        <br>
+    	<div class="row">
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.home_phone", :default =>"Home phone") %>: </strong><%= @patient.home_phone %>
+	      </div>
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.cel_phone", :default =>"Cel phone") %>: </strong><%= @patient.cel_phone %>
+	      </div>
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.work_phone", :default =>"Work phone") %>: </strong><%= @patient.work_phone %>
+	      </div>
+		</div>
+    	
+    </fieldset>
+    
+	
+    <fieldset id="documentos" class="">
+    	<legend>Documentos</legend>
+        <br>
+    	<div class="row">
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.cpf", :default =>"Cpf") %>: </strong><%= @patient.cpf %>
+	      </div>
+		  <div class="span2">
+			<strong><%= t("activerecord.attributes.patient.rg", :default =>"Rg") %>: </strong><%= @patient.rg %> / <%= @patient.rg_orgao %>
+	      </div>
+		</div>
+    </fieldset>
+    
+    <fieldset id="outras_informações" class="">
+    	<legend>Outras informações</legend>
+    	<br>
+    	<div class="row">
+		  <div class="span3">
+			<strong><%= t("activerecord.attributes.patient.nationality", :default =>"Nationality") %>: </strong><%= @patient.nationality %>
+	      </div>
+		  <div class="span3">
+			<strong><%= t("activerecord.attributes.patient.place_of_birth", :default =>"Place of Birth") %>: </strong><%= @patient.place_of_birth %>
+	      </div>
+	      <div class="span3">
+			<strong><%= t("activerecord.attributes.patient.marital_status", :default =>"Marital Status") %>: </strong><%= @patient.marital_status %>
+	      </div>
+		  <div class="span3">
+			<strong><%= t("activerecord.attributes.patient.occupation", :default =>"Occupation") %>: </strong><%= @patient.occupation %>
+	      </div>
+		</div>
+    </fieldset>
+<br>
+<br>
 <div class="actions">
+	<%= link_to "Histórico", patient_treatments_path(@patient), :class => "btn large primary" %>
 	<%= link_to t("bootstrap-rails.edit", :default=> "Edit"), edit_patient_path(@patient), :class => "btn large primary" %>
     <%= link_to t("bootstrap-rails.delete", :default => "Delete"), patient_path(@patient), :method => "delete", :class => "btn large", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
 </div>      

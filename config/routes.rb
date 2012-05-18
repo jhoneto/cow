@@ -26,13 +26,18 @@ Cow::Application.routes.draw do
     end
   end
   resources :estimates do
-    get :autocomplete_patient_name, :on => :collection
-    get :autocomplete_procedure_name, :on => :collection
+    #get :autocomplete_patient_name, :on => :collection
+    #get :autocomplete_procedure_name, :on => :collection
   end   
   resources :financial_accounts
   resources :groups
-  resources :patients
-  resources :procedures
+  resources :patients do
+    get :autocomplete_patient_name, :on => :collection
+    resources :treatments
+  end
+  resources :procedures do
+    get :autocomplete_procedure_name, :on => :collection
+  end
   resources :payments
   resources :reports do
     collection do
@@ -49,10 +54,7 @@ Cow::Application.routes.draw do
     end
   end
   resources :specialties
-  resources :treatments do
-    get :autocomplete_patient_name, :on => :collection
-    get :autocomplete_procedure_name, :on => :collection
-  end
+  
   resources :users
 
   match 'sign_in'  => 'welcome#index', :as => 'sign_in'

@@ -18,6 +18,8 @@ class Schedule < CowModel
       end
    	  {
 		    :id => self.id,
+		    :patient_name => self.patient_name,
+		    :dentist_id => self.dentist_id,
 		    :title => self.patient_name + ' [' + self.phone + '] / Obs: ' + self.obs[0..10],
         :description => self.patient_name, #self.description || "",
         :start => date.to_datetime.change({:hour => time.hour, :min => time.min}),

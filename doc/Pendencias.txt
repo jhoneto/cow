@@ -1,0 +1,20 @@
+#ATENDIMENTO
+ - Colocar atendimento pela agenda
+ - Na lista de paciente consultar o histórico de atendimento
+ - Incluir opção para imprimir o histórico de atendimento
+
+
+#FINANCEIRO
+ - Colocar ação para recebimento
+ - Como controlar o valor pago em relação ao valor à pagar?
+
+#GERAL
+ - Incluir pesquisa nas páginas de index....
+ - Padronizar as páginas de show
+ - I18N
+ - Mensagens de erro
+ - Página para configuração da conta
+
+
+#MOBILE
+ - Criar versão mobile para consulta de agenda e atendimento

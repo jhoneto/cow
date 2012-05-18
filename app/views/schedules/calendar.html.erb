@@ -136,7 +136,7 @@ $(document).ready(function() {
         eventClick: function(calEvent, jsEvent, view) {
           //document.location.href = '/schedules/' + calEvent.id + '/edit'
           $('#edicao_agendamento_window').modal('show'); 
-          $('#body_edicao').html("<a href='/schedules/" + calEvent.id + "/confirm' data-remote='true' data-method='put' class='btn btn-success'>Confirmar</a> <a href='/schedules/" + calEvent.id + "/cancel' data-remote='true' data-method='put' class='btn btn-danger'>Cancelar</a> <a href='/schedules/" + calEvent.id + "/edit' data-method='get' class='btn'>Editar</a>");
+          $('#body_edicao').html("<a href='/schedules/" + calEvent.id + "/confirm' data-remote='true' data-method='put' class='btn btn-success'>Confirmar</a> <a href='/schedules/" + calEvent.id + "/cancel' data-remote='true' data-method='put' class='btn btn-danger'>Cancelar</a> <a href='/schedules/" + calEvent.id + "/edit' data-method='get' class='btn'>Editar</a> <a href='/treatments/new?schedule_id="+calEvent.id+"' data-method='get' class='btn'>Atender</a>");
           $('#edicao_agendamento_window').on('hide', function () {
             calendar.fullCalendar( 'refetchEvents' );
           });
