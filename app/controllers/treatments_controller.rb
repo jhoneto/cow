@@ -12,11 +12,11 @@ class TreatmentsController < CowController
   end
 
   def new
-    @treatment  = Treatment.new
+    @treatment  = Treatment.new 
+    @patient = Patient.find(params[:patient_id])
     schedule = Schedule.find(params[:schedule_id])
     @treatment.dentist_id = schedule.dentist_id
     @treatment.date = Date.today
-    @patient_name = schedule.patient_name
     2.times { @treatment.treatmentitems.build }
   end
 end

@@ -1,6 +1,9 @@
 class Patient < CowModel
   
   has_many :treatments, :class_name => "Treatment", :foreign_key => "patient_id"
+  
+  scope :by_name, lambda {|parameter| where("upper(name) like upper(?)", "%#{parameter}%")}
+  scope :by_cpf, lambda{|parameter| where("project_id = ?", parameter)}
 
 	attr_accessor :date_of_birth_str
 

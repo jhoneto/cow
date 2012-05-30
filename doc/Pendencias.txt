@@ -1,7 +1,9 @@
 #ATENDIMENTO
- - Colocar atendimento pela agenda
- - Na lista de paciente consultar o histórico de atendimento
+ OK - Colocar atendimento pela agenda
+ OK - Na lista de paciente consultar o histórico de atendimento
  - Incluir opção para imprimir o histórico de atendimento
+ - Identificar o paciente antes de iniciar o atendimento
+ - Melhorar tela de confirmação para mostrar dados do paciente (nome, telefones)
 
 
 #FINANCEIRO

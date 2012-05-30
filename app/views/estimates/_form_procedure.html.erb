@@ -47,7 +47,7 @@ function total(qtd_id, price_id, total_id){
   <div class="row">
     <div class="span6">
       <label>Procedimento</label>
-      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_estimates_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value_br)}, :class => 'span6', :onblur => "force_mask('#{form_tag_id(procedure_form.object_name, :value_br)}')"%>
+      <%= procedure_form.autocomplete_field :procedure_name, autocomplete_procedure_name_procedures_path, :update_elements => {:id => form_tag_id(procedure_form.object_name, :procedure_id), :price => form_tag_id(procedure_form.object_name, :value_br)}, :class => 'span6', :onblur => "force_mask('#{form_tag_id(procedure_form.object_name, :value_br)}')"%>
       <%= procedure_form.hidden_field :procedure_id%>
     </div>
 

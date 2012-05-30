@@ -1,9 +1,9 @@
 <ul class="tabs nav nav-tabs"> 
-	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", treatments_path  %></li>  
-	<li class="active"><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_treatment_path %></li>
+	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", patient_treatments_path  %></li>  
+	<li class="active"><%= link_to "#{t("bootstrap-rails.new", :default => "New")}", new_patient_treatment_path %></li>
 </ul>
 <h2 class="title"><%= t("bootstrap-rails.new", :default => "New")%>  <%= t("activerecord.models.treatment") %></h2> 
-<%= semantic_nested_form_for @treatment, :html => { :class => "form-vertical"} do |f| -%>
+<%= semantic_nested_form_for [@patient, @treatment], :html => { :class => "form-vertical"} do |f| -%>
 <%= f.semantic_errors %>
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>

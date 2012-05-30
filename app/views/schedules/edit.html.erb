@@ -1,3 +1,18 @@
+<div class="modal hide fade" id="search_patient" style="width: 700px;">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Identificar paciente</h3>
+  </div>
+  <div class="modal-body">
+	<%=render :partial => "patients/windows_search", :locals => {:name => @schedule.patient_name}%>
+	<div id="table">
+	  <%= render :partial => 'patients/list', :locals => {:patients => Patient.all} %>
+    </div>
+  </div>
+</div>
+
+
+
 <ul class="nav nav-tabs"> 
 	<li><%= link_to "#{t("bootstrap-rails.list", :default => "List")}", calendar_schedules_path  %></li> 
 	<li class="active"><%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_schedule_path %></li>
@@ -5,9 +20,59 @@
 <h2 class="title"><%= t("bootstrap-rails.edit", :default => "Edit") %> <%= t("activerecord.models.schedule") %></h2>                            
 
 <%= semantic_form_for @schedule do |f| -%>
-<%= f.semantic_errors %>    
-  <%= render :partial => "form", :locals => {:f => f} %>
-<% end -%>                        
+	<%= f.semantic_errors %>
+	<div class="well">
+		<%= link_to "Confirmar", confirm_schedule_path(@schedule), :method => :put, :class => "btn btn-success" %>
+		<%= link_to "Cancelar", cancel_schedule_path(@schedule), :method => :put, :class => "btn btn-danger" %>
+		<%= link_to "Atender", new_patient_treatment_path(Patient.find(1), :schedule_id => @schedule.id), :class => "btn btn-primary" %>
+	</div>
+	<div class="row">
+		<div class="span1">
+			<label class="checkbox">
+				<%= f.input :fit%>
+			</label>
+		</div>
+		<div class="span2">
+			<label class="checkbox">
+				<%= f.input :reminder%>
+			</label>
+		</div>
+		<div class="span2">
+			<%= f.input :dentist, :input_html => {:class => 'span2'}%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2">
+			<%= f.input :date_str, :as => :string, :input_html => {:class => 'datepicker span2'}%>
+		</div>
+		<div class="span1">
+			<%= f.input :time, :as => :string, :input_html => {:class => 'span1'}%>
+		</div>
+	</div>
+	<div class="row">
+		<% if (@schedule.patient_id.nil?)%>
+		  <div class="span3 control-group warning">
+			<%= f.input :patient_name, :input_html => {:class => 'span3'}%>
+			<span class="help-inline">Paciente não identificado</span>
+		  </div>
+		<% else %>
+		  <div class="span3">
+			<%= f.input :patient_name, :input_html => {:class => 'span3'}%>
+		  </div>
+		<% end %>
+		<div class="span2">
+			<%= f.input :phone, :input_html => {:class => 'span2'}%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span5">
+			<%= f.input :obs, :input_html => {:class => 'span5', :rows => 2}%>
+		</div>
+	</div>
 
-<% content_for :sidebar, render(:partial => 'sidebar') -%> 
+	<% end -%>
+	
+	<a data-toggle="modal" href="#search_patient" class="btn btn-primary btn-large">Launch demo modal</a>                        
+
+	<% content_for :sidebar, render(:partial => 'sidebar') -%> 
 

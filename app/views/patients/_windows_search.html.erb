@@ -1,0 +1,15 @@
+<script>
+jQuery(function($){
+    $("#by_cpf").mask("999.999.999-99");
+});
+</script>
+
+<%= form_tag patients_path, :remote => true, :method => :get,  :class => "well form-search"  do %>
+  <label>Nome</label>
+  <%= text_field_tag :by_name%>
+  <label>CPF</label>
+  <%= text_field_tag :by_cpf%>
+  <button type="submit" class="btn">Buscar</button>
+
+<% end %>
+
