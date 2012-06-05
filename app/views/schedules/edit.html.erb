@@ -6,7 +6,7 @@
   <div class="modal-body">
 	<%=render :partial => "patients/windows_search", :locals => {:name => @schedule.patient_name}%>
 	<div id="table">
-	  <%= render :partial => 'patients/list', :locals => {:patients => Patient.all} %>
+	  <%= render :partial => 'patients/list', :locals => {:patients => Patient.all, :field_name => "schedule_patient_name", :field_id => "schedule_patient_id"} %>
     </div>
   </div>
 </div>
@@ -22,9 +22,9 @@
 <%= semantic_form_for @schedule do |f| -%>
 	<%= f.semantic_errors %>
 	<div class="well">
-		<%= link_to "Confirmar", confirm_schedule_path(@schedule), :method => :put, :class => "btn btn-success" %>
-		<%= link_to "Cancelar", cancel_schedule_path(@schedule), :method => :put, :class => "btn btn-danger" %>
-		<%= link_to "Atender", new_patient_treatment_path(Patient.find(1), :schedule_id => @schedule.id), :class => "btn btn-primary" %>
+		<input type="submit" class="btn btn-success" value="Confirmar" name="commit">
+		<input type="submit" class="btn btn-danger" value="Cancelar" name="commit">
+		<input type="submit" class="btn btn-primary" value="Atender" name="commit">
 	</div>
 	<div class="row">
 		<div class="span1">
@@ -64,6 +64,7 @@
 			<%= f.input :phone, :input_html => {:class => 'span2'}%>
 		</div>
 	</div>
+	<%= f.hidden_field :patient_id %>
 	<div class="row">
 		<div class="span5">
 			<%= f.input :obs, :input_html => {:class => 'span5', :rows => 2}%>

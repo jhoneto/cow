@@ -13,7 +13,26 @@ class SchedulesController < CowController
   end
 
   def update
-    update!{calendar_schedules_path}
+    schedule = Schedule.find(params[:id])
+    if params[:commit] == 'Confirmar'
+      schedule.status = 2
+    elsif params[:commit] == 'Cancelar'
+      schedule.status = 3
+    end
+    puts "****************************"
+    puts params[:commit]
+    puts "****************************"
+    respond_to do |format|
+      if schedule.update_attributes(params[:schedule])
+        format.html { redirect_to(calendar_schedules_path) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => schedule.errors, :status => :unprocessable_entity }
+      end
+    end
+        
+    #update!{calendar_schedules_path}
   end
 
   def calendar
@@ -33,9 +52,11 @@ class SchedulesController < CowController
 
   def confirm
     schedule = Schedule.find(params[:id])
+    schedule.update_attributes(params[:schedule]) 
     schedule.status = 2
     schedule.save
     respond_to do |format|
+      format.html { redirect_to(calendar_schedules_path) }
       format.js
     end
   end

@@ -1,28 +1,31 @@
+<script>
+  function getSelect(id, name){
+	$("#<%=escape_javascript(field_name)%>").val(name);
+	$("#<%=escape_javascript(field_id)%>").val(id);
+}
+</script>
+
 <table class="table table-striped table-bordered">
-	  <thead>             
-	    <th>#</th>   
-	    <th><%= t("activerecord.attributes.patient.name", :default => "Name") %></th>
-	    <th><%= t("activerecord.attributes.patient.home_phone", :default => "Home Phone") %></th>
-	    <th><%= t("activerecord.attributes.patient.cel_phone", :default => "Cel Phone") %></th>
-	    <th><%= t("activerecord.attributes.patient.work_phone", :default => "Work Phone") %></th>
-	    <th><%= t("bootstrap-rails.created_at", :default => "Created at")  %></th>
-	    <th class="last">&nbsp;</th>
-	  </thead>                         
-	  <tbody>
-	   <% patients.each do |patient| -%>
-	   <tr>
-	    <td><%= patient.id %></td>
-	    <td><%= link_to patient.name, patient_path(patient) %></td>
-	    <td><%= patient.home_phone %></td>
-	    <td><%= patient.cel_phone %></td>
-	    <td><%= patient.work_phone %></td>
-	    <td><%= patient.created_at %></td>
-	    <td>
-	      <%= link_to "#{t("bootstrap-rails.show", :default => "Show")}", patient_path(patient) %> |
-	      <%= link_to "#{t("bootstrap-rails.edit", :default => "Edit")}", edit_patient_path(patient) %> |
-	      <%= link_to "#{t("bootstrap-rails.delete", :default => "Delete")}", patient_path(patient), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-	    </td>
-	  </tr>
-	  <% end -%>
+	<thead>             
+		<th>#</th>   
+		<th><%= t("activerecord.attributes.patient.name", :default => "Name") %></th>
+		<th><%= t("activerecord.attributes.patient.home_phone", :default => "Home Phone") %></th>
+		<th><%= t("activerecord.attributes.patient.cel_phone", :default => "Cel Phone") %></th>
+		<th><%= t("activerecord.attributes.patient.work_phone", :default => "Work Phone") %></th>
+		<th class="last">&nbsp;</th>
+	</thead>                         
+	<tbody>
+		<% patients.each do |patient| -%>
+		<tr>
+			<td><%= patient.id %></td>
+			<td><%= link_to patient.name, patient_path(patient) %></td>
+			<td><%= patient.home_phone %></td>
+			<td><%= patient.cel_phone %></td>
+			<td><%= patient.work_phone %></td>
+			<td>
+				<button class="btn btn-info" onclick="getSelect(<%=patient.id%>, '<%=patient.name%>')">Selecionar</button>
+			</td>
+		</tr>
+		<% end -%>
 	</tbody>
-	</table>
+</table>
