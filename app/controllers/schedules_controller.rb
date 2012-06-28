@@ -13,19 +13,21 @@ class SchedulesController < CowController
   end
 
   def update
-    schedule = Schedule.find(params[:id])
+    @schedule = Schedule.find(params[:id])
     if params[:commit] == 'Confirmar'
-      schedule.status = 2
+      @schedule.status = 2
     elsif params[:commit] == 'Cancelar'
-      schedule.status = 3
+      @schedule.status = 3
     end
-    
+    if params[:commit] == 'Atender' && @schedule.patient_id.nil?
+      flash[:error] = "Identifique o paciente."
+      redirect_to edit_schedule_path
+      
+    else
     respond_to do |format|
-      if schedule.update_attributes(params[:schedule])
+      if @schedule.update_attributes(params[:schedule])
         if params[:commit] == 'Atender'
-          puts '##################'
-          puts params[:commit]
-          format.html { redirect_to(new_patient_treatment_path(:patient_id => schedule.patient_id, :schedule_id => schedule.id)) }
+          format.html { redirect_to(new_patient_treatment_path(:patient_id => @schedule.patient_id, :schedule_id => @schedule.id)) }
         else
           format.html { redirect_to(calendar_schedules_path) }
           format.xml  { head :ok }
@@ -35,7 +37,7 @@ class SchedulesController < CowController
         format.xml  { render :xml => schedule.errors, :status => :unprocessable_entity }
       end
     end
-        
+    end    
     #update!{calendar_schedules_path}
   end
 
