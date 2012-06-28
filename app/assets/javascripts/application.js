@@ -6,12 +6,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree
 //= require jquery.ui.all
 //= require jquery_nested_form
 //= require autocomplete-rails
 //= require jquery.contextMenu
 //= require jquery.ui.position
+//= require jquery.maskedinput
+//= require jquery.maskMoney
+//= require bootstrap
+//= require fullcalendar
 
 function convert_to_money(value){
 	var v = value;
