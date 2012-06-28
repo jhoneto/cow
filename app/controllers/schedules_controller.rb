@@ -19,13 +19,17 @@ class SchedulesController < CowController
     elsif params[:commit] == 'Cancelar'
       schedule.status = 3
     end
-    puts "****************************"
-    puts params[:commit]
-    puts "****************************"
+    
     respond_to do |format|
       if schedule.update_attributes(params[:schedule])
-        format.html { redirect_to(calendar_schedules_path) }
-        format.xml  { head :ok }
+        if params[:commit] == 'Atender'
+          puts '##################'
+          puts params[:commit]
+          format.html { redirect_to(new_patient_treatment_path(:patient_id => schedule.patient_id, :schedule_id => schedule.id)) }
+        else
+          format.html { redirect_to(calendar_schedules_path) }
+          format.xml  { head :ok }
+        end
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => schedule.errors, :status => :unprocessable_entity }

@@ -16,6 +16,7 @@ class TreatmentsController < CowController
     @patient = Patient.find(params[:patient_id])
     schedule = Schedule.find(params[:schedule_id])
     @treatment.dentist_id = schedule.dentist_id
+    @treatment.patient_id = @patient.id
     @treatment.date = Date.today
     2.times { @treatment.treatmentitems.build }
   end

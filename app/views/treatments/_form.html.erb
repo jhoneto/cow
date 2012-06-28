@@ -23,7 +23,7 @@
       </div>
       <div class="span6">
       	<label>Paciente</label>
-      	<%= f.autocomplete_field :patient_name, autocomplete_patient_name_patients_path, :value => @treatment.new_record? ? @patient_name : @treatment.patient_name, :id_element => '#treatment_patient_id', :class => 'span6'%>
+      	<%= f.autocomplete_field :patient_name, autocomplete_patient_name_patients_path, :value => @treatment.new_record? ? @patient.name : @treatment.patient_name, :id_element => '#treatment_patient_id', :class => 'span6'%>
       	<%= f.hidden_field :patient_id%>
       </div>
     </div>    
